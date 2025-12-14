@@ -4,382 +4,1116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>happy food </title>
+    <title>Happy Food - Order Delicious Food Online</title>
     <link rel="icon" href="imges/3f9b8d60e83b88a6c019b7fcb3ea1e.webp" type="image/x-icon">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        h1 {
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --accent-color: #f39c12;
+            --light-color: #f8f9fa;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --light-gray: #ecf0f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
             font-family: Georgia, serif;
+            font-weight: 600;
+        }
+
+        /* Premium Topbar */
+        .topbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            padding: 12px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1000;
+        }
+
+        .topbar .container {
+            max-width: 1200px;
+        }
+
+        .topbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+.city-map {
+    max-width: 50px;
+    margin: auto;
+    display: block;
+}
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .topbar-left i {
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        .topbar-left span {
+            color: white;
+            font-weight: 500;
+        }
+
+        .topbar-middle {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            height: 24px;
+            display: flex;
+            align-items: center;
+        }
+
+        .marquee-container {
+            display: flex;
+            position: absolute;
+            white-space: nowrap;
+            animation: marquee 20s linear infinite;
+        }
+
+        .marquee-content {
+            color: white;
+            font-weight: 500;
+            padding-right: 50px;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .topbar-right button {
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .topbar-right button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Premium Navbar */
+        .navbar {
+            background-color: white !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--dark-color) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-buttons .btn {
+            border-radius: 20px;
+            padding: 6px 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color) !important;
+        }
+
+        .btn-login:hover {
+            background-color: var(--primary-color);
+            color: white !important;
+        }
+
+        .btn-signup {
+            background-color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            color: white !important;
+        }
+
+        .btn-signup:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .hero-image {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-shape {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.1;
+        }
+
+        .hero-shape-1 {
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+
+        .hero-shape-2 {
+            position: absolute;
+            bottom: 50px;
+            right: 50px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 40px;
+            max-width: 700px;
+        }
+
+        /* Carousel Section */
+        .carousel-section {
+            background-color: var(--light-color);
+            padding: 80px 0;
+        }
+
+        .carousel-item {
+            height: 500px;
+            position: relative;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .carousel-caption h5 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .carousel-caption p {
+            font-size: 1.1rem;
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            margin: 0 20px;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Services Section */
+        .services-section {
+            background-color: white;
+        }
+
+        .service-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .service-card .card-body {
+            padding: 25px;
+        }
+
+        .service-card .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .service-card .card-text {
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+        .service-card .btn {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 20px;
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .service-card .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .accordion-button {
+            font-weight: 600;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .accordion-button:focus {
+            box-shadow: none;
+        }
+
+        /* App Download Section */
+        .app-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .app-content h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .app-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .app-buttons a {
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .app-buttons a:hover {
+            transform: translateY(-5px);
+        }
+
+        .app-image {
+            text-align: center;
+        }
+
+        .app-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Cities Section */
+        .cities-section {
+            background-color: var(--light-color);
+        }
+
+        .city-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .city-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .city-img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .city-card .card-body {
+            padding: 20px;
+        }
+
+        .city-card .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .city-card .card-text {
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+
+        .city-card .btn {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 20px;
+            padding: 6px 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .city-card .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand i {
+            font-size: 1.8rem;
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-contact p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--primary-color);
+            width: 20px;
+        }
+
+        .footer-links h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .footer-social h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #bbb;
+        }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+            .navbar-nav {
+                background-color: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                margin-top: 20px;
+            }
+
+            .auth-buttons {
+                margin-top: 20px;
+                justify-content: center;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .topbar-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .topbar-middle {
+                width: 100%;
+            }
+
+            .hero-section {
+                padding: 50px 0;
+            }
+
+            .section {
+                padding: 50px 0;
+            }
+
+            .carousel-item {
+                height: 300px;
+            }
+
+            .app-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
 
 <body>
-
-    <!-- topbar start -->
-    <div class="container-fluid mt-2">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-2">
-                        <i class="fa-solid fa-store fa-xl mt-4"></i>
+    <!-- Topbar Start -->
+    <div class="topbar">
+        <div class="container">
+            <div class="topbar-content">
+                <div class="topbar-left">
+                    <i class="fa-solid fa-store"></i>
+                    <span>Business Solutions</span>
+                </div>
+                <div class="topbar-middle">
+                    <div class="marquee-container">
+                        <span class="marquee-content">Do You Need A Business Account? Get exclusive benefits and features!</span>
+                        <span class="marquee-content">Do You Need A Business Account? Get exclusive benefits and features!</span>
                     </div>
+                </div>
+                <div class="topbar-right">
+                    <button class="btn" type="submit">Sign up Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <div class="col-md-8">
-                        <a class="navbar-brand " href="#" style="color: green;">
-                            <h4><marquee behavior="" direction=""> Do You Need A Business Account?</marquee></h4>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fa-solid fa-utensils"></i>
+                <span>Happy Food</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+                <div class="auth-buttons ms-lg-3">
+                    <button class="btn btn-login" type="submit">Login</button>
+                    <button class="btn btn-signup" type="submit">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-shape">
+            <div class="hero-shape-1"></div>
+            <div class="hero-shape-2"></div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <h1 class="hero-title">Find your happiness with your first Order</h1>
+                    <p class="hero-subtitle">Order from your favorite restaurants and get food delivered right to your doorstep.</p>
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Enter your location/street number">
+                        <button class="search-btn">
+                            <i class="fa-solid fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 hero-image">
+                    <img src="imges/kid food.png" alt="Happy Food">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carousel Section -->
+    <section class="carousel-section">
+        <div class="container">
+            <h2 class="section-title">You prepare the food, we handle the rest</h2>
+            <p class="section-subtitle">From cooking to delivery, we take care of everything so you can focus on what matters most - creating delicious food.</p>
+            
+            <div id="foodCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#foodCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#foodCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#foodCarousel" data-bs-slide-to="2"></button>
+                    <button type="button" data-bs-target="#foodCarousel" data-bs-slide-to="3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="imges/cooking.png" class="d-block w-100" alt="Cooking">
+                        <div class="carousel-caption">
+                            <h5>Quality Cooking</h5>
+                            <p>Prepared with love by expert chefs</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="imges/Food-Delivery-1.png" class="d-block w-100" alt="Food Delivery">
+                        <div class="carousel-caption">
+                            <h5>Fast Delivery</h5>
+                            <p>Hot food delivered to your doorstep</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="imges/money transfer.png" class="d-block w-100" alt="Payment">
+                        <div class="carousel-caption">
+                            <h5>Easy Payment</h5>
+                            <p>Multiple payment options for your convenience</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="imges/oficelunch.webp" class="d-block w-100" alt="Office Lunch">
+                        <div class="carousel-caption">
+                            <h5>Corporate Catering</h5>
+                            <p>Special packages for office events</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#foodCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#foodCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="service" class="section services-section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">We offer a range of services to help restaurants grow their business and customers enjoy delicious food.</p>
+            
+            <div class="row mb-5">
+                <div class="col-lg-4 mb-4">
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                    Our Business Plan
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>We offer comprehensive business solutions for restaurants and food vendors. Partner with us to expand your reach and grow your business with minimal investment.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                    Profit Margin Plan
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Our profit margin plan ensures fair pricing for customers while maximizing returns for our restaurant partners. We provide transparent commission structures and detailed analytics to help you optimize your business.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                    Sales and Marketing
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Leverage our marketing expertise to increase your visibility. We offer promotional campaigns, special offers, and featured listings to help your restaurant stand out in a competitive market.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="service-card card h-100">
+                                <img src="imges/asian-girl-eating-burger-white-yellow-background_466689-55067.avif" class="card-img-top service-img" alt="Best Food">
+                                <div class="card-body">
+                                    <h3 class="card-title">Best Food in Your Area</h3>
+                                    <p class="card-text">List your restaurant or shop on Happy Food and reach millions of hungry customers. We handle the delivery while you focus on what you do best - making delicious food!</p>
+                                    <a href="#" class="btn">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="service-card card h-100">
+                                <img src="imges/stock-photo-smiling-businesswoman-handshaking-muslim-partner-modern-restaurant-banner.jpg" class="card-img-top service-img" alt="Partnership">
+                                <div class="card-body">
+                                    <h3 class="card-title">Partnership With Us</h3>
+                                    <p class="card-text">Join our growing network of restaurants and food vendors. Benefit from our technology, delivery network, and customer base to grow your business.</p>
+                                    <a href="#" class="btn">Become a Partner</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="service-card card h-100">
+                                <img src="imges/mt.jpg" class="card-img-top service-img" alt="Easy Transactions">
+                                <div class="card-body">
+                                    <h3 class="card-title">Easy Transactions</h3>
+                                    <p class="card-text">Seamless payment processing with multiple options including credit cards, digital wallets, and cash on delivery. Fast and secure transactions for both customers and partners.</p>
+                                    <a href="#" class="btn">Payment Options</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="service-card card h-100">
+                                <img src="imges/customer-service.jpg" class="card-img-top service-img" alt="Customer Support">
+                                <div class="card-body">
+                                    <h3 class="card-title">24/7 Customer Support</h3>
+                                    <p class="card-text">Our dedicated support team is always ready to help. Whether you're a customer with a query or a partner needing assistance, we're here for you round the clock.</p>
+                                    <a href="#" class="btn">Contact Support</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Download Section -->
+    <section class="section app-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 app-content">
+                    <h2>Download the App</h2>
+                    <p>Download the Happy Food App and order your favorite food online to get the fastest delivery.</p>
+                    <div class="app-buttons">
+                        <a href="#">
+                            <img src="imges/play-store.png" alt="Google Play Store" height="50">
+                        </a>
+                        <a href="#">
+                            <img src="imges/appstore.png" alt="Apple App Store" height="50">
                         </a>
                     </div>
-
-                    <div class="col-md-2">
-                        <button class="btn btn-l btn-outline-primary mr-2" type="submit">Sign up Now</button>
-                    </div>
                 </div>
-        </div>
-
-        <nav class="navbar navbar-light bg-green">
-            <div class="container-fluid " style="background-color :yellowgreen;">
-                <i class="fa-solid fa-tag fa-xl"></i>
-                <h1> <a class="navbar-brand" style="font-size:7vh;">Happy Food</a></h1>
-                <form class="d-flex">
-
-                    <button class="btn btn-outline-light bg-success" type="submit">Login</button>
-                    <button class="btn btn-outline-light bg-success mx-3" type="submit">Sign UP</button>
-
-                </form>
-            </div>
-        </nav>
-        <!-- topbar end -->
-        <!-- slide two start -->
-    </div>
-    <div class="container-fluid">
-        <div class="row bg-light">
-            <div id="right" class="col-md-8  " style="padding: 100px;"> <br>
-                <p style="color: yellowgreen; text-align: center;">
-                <h3 style="color: green;"><b>Find your happiness with your first Order</b> </h3>
-                </p>
-                <input class="form-control" type="search" style="width: 700px; margin-bottom: 5px;"
-                    placeholder="your location/street number">
-                <button class="btn btn-outline-dark " type="submit" style="background-color: yellowgreen;">Find
-                    food</button>
-            </div>
-            <div id="left" class="col-md-4">
-                <img src="imges/kid food.png" class="img-fluid rounded float-left" alt="Responsive image">
+                <div class="col-lg-6 app-image">
+                    <img src="imges/Screenshot (9).png" alt="Happy Food App">
+                </div>
             </div>
         </div>
-    </div>
-    <h1 style="margin: 0px 0px 0px 9px;"> You prepare the food, we handle the rest</h1>
-    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="imges/cooking.png" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="imges/Food-Delivery-1.png" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="imges/money transfer.png" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="imges/oficelunch.webp" class="d-block w-100" alt="...">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
     </section>
-    <!-- slide two end-->
 
+    <!-- Cities Section -->
+    <section class="section cities-section">
+        <div class="container">
+            <h2 class="section-title">Find Us in These Cities and More</h2>
+            <p class="section-subtitle">We're expanding rapidly and now serving delicious food in these cities.</p>
+            
+            <div class="text-center mb-5">
+                <img src="imges/citymap.jpg" class="img-fluid city-map" alt="Cities Map">
 
-
-    <section id="service">
-        <div class="bg-light">
-            <div>
-                <h1 class="text-center">Our Services</h1>
-                <hr>
             </div>
-            <div class="row m-3 pb-3">
-                <div class="accordion" id="accordionPanelsStayOpenExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button " type="button" data-bs-toggle="collapse"
-                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                                aria-controls="panelsStayOpen-collapseOne" style="background-color:rgb(230, 163, 132);">
-                                Our Business Plan
-                            </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-                            <div class="accordion-body">
-                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias sint odio facere?
-                                    Quas fugiat nihil, quis minus, consequatur modi iste aut nobis iure, enim harum esse
-                                    accusamus aspernatur reiciendis inventore?</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
-                                data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                                aria-controls="panelsStayOpen-collapseTwo" style="background-color:#a0cc92;">
-                                Profit Margin plan
-                            </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-                            <div class="accordion-body">
-                                <strong>This is the second item's accordion body.</strong> It is hidden by default,
-                                until the collapse plugin adds the appropriate classes that we use to style each
-                                element. These classes control the overall appearance, as well as the showing and hiding
-                                via CSS transitions. You can modify any of this with custom CSS or overriding our
-                                default variables. It's also worth noting that just about any HTML can go within the
-                                <code>.accordion-body</code>, though the transition does limit overflow.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item my-3">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
-                                data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
-                                aria-controls="panelsStayOpen-collapseThree" style="background-color:#c2d4bb;">
-                                Sell and Marketing
-                            </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
-                            <div class="accordion-body">
-                                <strong>This is the third item's accordion body.</strong> It is hidden by default, until
-                                the collapse plugin adds the appropriate classes that we use to style each element.
-                                These classes control the overall appearance, as well as the showing and hiding via CSS
-                                transitions. You can modify any of this with custom CSS or overriding our default
-                                variables. It's also worth noting that just about any HTML can go within the
-                                <code>.accordion-body</code>, though the transition does limit overflow.
-                            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4 col-lg-2">
+                    <div class="city-card card h-100">
+                        <img src="imges/thakurgon.jpg" class="card-img-top city-img" alt="Thakurgaon">
+                        <div class="card-body">
+                            <h5 class="card-title">Thakurgaon</h5>
+                            <p class="card-text">Explore delicious food options in Thakurgaon</p>
+                            <a href="#" class="btn">Take A Tour</a>
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-                <div class="row justify-content-center" style="background-image: url(imges/bg\ img.jpg);">
-                    <div class="col-md-3 m-3 rounded" style="background-color:  #e8f3dc;">
-                        <h3 class="text-center">Best Food in your Area</h3>
-                        <hr>
-                        <div><img src="imges/asian-girl-eating-burger-white-yellow-background_466689-55067.avif" alt="" width="300px"></div>
-                        <p>List your restaurant or shop on foodpanda
-
-                            Would you like millions of new customers to enjoy your amazing food and groceries? So would
-                            we!
-
-                            It's simple: we list your menu and product lists online, help you process orders, pick them
-                            up,
-                            and deliver them to hungry pandas in a heartbeat!
-
-                            Interested? Let's start our partnership today!</p>
-                    </div>
-                    <div class="col-md-3  m-3 rounded" style="background-color:#d0f0c7;">
-
-                        <h3 class="text-center">Partnership With Us</h3>
-                        <hr>
-                        <div><img src="imges/stock-photo-smiling-businesswoman-handshaking-muslim-partner-modern-restaurant-banner.jpg" alt="" width="300px" height="200px"></div>
-                        <p>Download the food and groceries you love#8cb46c
-
-                            It's all at your fingertips the restaurants and shops you love. Find the right food and
-                            groceries to suit your mood, and make the first bite last. Go ahead, download us.</p>
-                    </div>
-                    <div class="col-md-3  rounded m-3 " style="background-color: #a2eeb7;">
-
-                        <h3 class="text-center">Easy transactions</h3>
-                        <hr>
-                        <div><img src="imges/mt.jpg" alt="" width="300px" height="200px"></div>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit doloribus itaque quisquam
-                            dolorem eligendi? Velit odit, fugiat, laudantium aspernatur maxime nulla aut maiores
-                            necessitatibus minima a et enim, corporis excepturi.`</p>
+                <div class="col-md-4 col-lg-2">
+                    <div class="city-card card h-100">
+                        <img src="imges/russia.jpg" class="card-img-top city-img" alt="Russia">
+                        <div class="card-body">
+                            <h5 class="card-title">Russia</h5>
+                            <p class="card-text">Discover local cuisines in Russia</p>
+                            <a href="#" class="btn">Take A Tour</a>
+                        </div>
                     </div>
                 </div>
-
+                <div class="col-md-4 col-lg-2">
+                    <div class="city-card card h-100">
+                        <img src="imges/noakhali.jpg" class="card-img-top city-img" alt="Noakhali">
+                        <div class="card-body">
+                            <h5 class="card-title">Noakhali</h5>
+                            <p class="card-text">Find the best food spots in Noakhali</p>
+                            <a href="#" class="btn">Take A Tour</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-2">
+                    <div class="city-card card h-100">
+                        <img src="imges/dhaka.jpg" class="card-img-top city-img" alt="Dhaka">
+                        <div class="card-body">
+                            <h5 class="card-title">Dhaka</h5>
+                            <p class="card-text">Experience the diverse food culture of Dhaka</p>
+                            <a href="#" class="btn">Take A Tour</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-2">
+                    <div class="city-card card h-100">
+                        <img src="imges/china.jpg" class="card-img-top city-img" alt="China">
+                        <div class="card-body">
+                            <h5 class="card-title">China</h5>
+                            <p class="card-text">Taste authentic Chinese cuisine</p>
+                            <a href="#" class="btn">Take A Tour</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-2">
+                    <div class="city-card card h-100">
+                        <img src="imges/borial.jpg" class="card-img-top city-img" alt="Barisal">
+                        <div class="card-body">
+                            <h5 class="card-title">Barisal</h5>
+                            <p class="card-text">Enjoy the flavors of Barisal</p>
+                            <a href="#" class="btn">Take A Tour</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        </div>
-        </div>
-
     </section>
 
- <section>
-   <div class="row">
-            <div class="col-md-6  justify-content-center align-items-center" style="margin-top: 100px;">
-             <h1 class="mx-3"> Download the App</h1>  
-                <h6 class="mx-3">Download the Pathao App and order your food online to get the fastest delivery.</h6> <br>
-                <img src="imges/play-store.png" class="p-3">
-                <img src="imges/appstore.png" alt="">
-            </div>
-       
-        <div class="col-md-6 d-flex justify-content-center align-items-center" >
-            <img src="imges/Screenshot (9).png"  alt="" height="450px">
-        </div>
-</div>
- </section> 
- 
-
-
-    <section id="Laptop" >
-        <div >
-            <div class=" text-center text-light m-0 p-0" style="background-color: yellowgreen;">
-                <h2 style="color: rgb(0, 0, 0);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
-                    Find Us in these Cities and More</h2>
-            </div>
-        </div>
-        <hr />
-        <div class="d-flex justify-content-center align-items-center">
-            <img src="Image/main-222.webp" width="1350px" alt="" />
-        </div>
-    </section>
-    <hr>
-
-
-    <div class="row mx-1">
-
-        <div class="col-md-2">
-            <div class="card">
-                <img src=" imges/thakurgon.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">ThakurGoan</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-success">Take A Tour</a>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-brand">
+                        <i class="fa-solid fa-utensils"></i>
+                        <h3>HAPPY FOOD</h3>
+                    </div>
+                    <p class="mb-3">Your trusted partner for delicious food delivered right to your doorstep.</p>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-envelope"></i> happyfood@example.com</p>
+                        <p><i class="fas fa-phone"></i> +009-362-8455</p>
+                        <p><i class="fas fa-mobile-alt"></i> +64-4855-93787</p>
+                        <p><i class="fas fa-map-marker-alt"></i> HappyFood Headquarters<br>
+                        Dhanmondi-27, Nizam Sonkor Plaza 55/road, Dhaka-1207, Bangladesh</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-links">
+                        <h3>Useful Links</h3>
+                        <ul>
+                            <li><a href="#">Health Ministry</a></li>
+                            <li><a href="#">Food Qualities and Standardization Council</a></li>
+                            <li><a href="#">Trade License Authorities</a></li>
+                            <li><a href="#">Bangladesh Bank</a></li>
+                            <li><a href="#">Bangladesh E-commerce Association</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-social">
+                        <h3>Follow Us</h3>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                        <div class="footer-logo">
+                            <img src="imges/foodlofgo.png" alt="Happy Food Logo" style="height: 60px;">
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card">
-                <img src=" imges/russia.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Russia</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-success">Take A Tour</a>
-                </div>
+            <div class="footer-copyright">
+                <p>&copy; 2023 Happy Food. All rights reserved. Powered by Rahmat</p>
             </div>
         </div>
-        <div class="col-md-2">
-            <div class="card">
-                <img src=" imges/noakhali.jpg" width="30%" height="100%" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Noakhali</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content .</p>
-                    <a href="#" class="btn btn-success">Take A Tour</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card">
-                <img src=" imges/dhaka.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Dhaka</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-success">Take A Tour</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card">
-                <img src=" imges/china.jpg" class="card-img-top" width="1500px" height="100%" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">China</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-success">Take A Tour</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="card">
-                <img src=" imges/borial.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Borisal</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-success">Take A Tour</a>
-                </div>
-            </div>
-        </div>
+    </footer>
 
-
-
-
-        <div class="row m-1" style="background-color:#edffe6; border-top: #38a856 ;">
-            <div class="col-md-4 text-justify">
-
-                <h3 class="my-3" style="font-family: Georgia, 'Times New Roman', Times, serif; padding: 3px;"><i class="fa-solid fa-utensils"></i> HAPPY FOOD </h3>
-
-                <hr>
-                <i style="font-size:24px" class="fas">&#xf0e0;</i> happyfood@gmail.com
-                <hr>
-                <i style="font-size:24px m-2" class="fas">&#xf095;</i> +009-362-8455
-                <hr>
-                <i style="font-size:24px" class="fas">&#xf3cd;</i> +64-4855-93787
-                <hr>
-                <i style="font-size:24px" class="fas">&#xf3c5;</i>
-                HappyFood Head quater
-                Dhanmondi-27,Nizam Sonkor Plaza 55/road,Dhaka-1207, Bangladesh
-
-
-
-
-            </div>
-            <div class="col-md-4 text-justify mt-2 ">
-
-                <h3 class="my-3"  style="font-family: Georgia, 'Times New Roman', Times, serif;"><i class="fa-solid fa-link"></i> USEFUL LINKS</h3>
-
-                <hr>
-                <p><a href="" style="text-decoration: none;" > Health Ministry</a></p>
-                <p><a href="" style="text-decoration: none;">Food Qualities and Standardization Council </a></p>
-                <p><a href="" style="text-decoration: none;">Trade licence Authorities</a></p>
-                <p><a href="" style="text-decoration: none;">Bangladesh Bank</a></p>
-                <p><a href="" style="text-decoration: none;">Bangladesh E-commers assiociation</a>
-                </p>
-
-
-
-            </div>
-            <div class="col-md-4 mt-2 text-center">
-                <h3 class="my-3"  style="font-family: Georgia, 'Times New Roman', Times, serif;"><i class="fa-solid fa-star"></i> Follow Us</h3>
-                <hr>
-
-                <p>
-                <h5>Facebook</h5>
-                </p>
-                <p>
-                <h5>Twitter</h5>
-                </p>
-                <p>
-                <h5>Instagram</h5>
-                </p>
-                <img src="imges/foodlofgo.png" alt="" style="height: 60px;">
-               <p>Powered &copy by Rahmat</p> 
-
-
-            </div>
-
-
-
-        </div>
-
-
-    </div>
-
-
-    </div>
+    <script>
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
 </body>
 
 </html>
