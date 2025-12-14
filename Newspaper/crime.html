@@ -1,24 +1,396 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">S
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অপরাধ সংবাদ - ক্যাকটাস নিউজ</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e53935;
+            --secondary-color: #c62828;
+            --accent-color: #ff6659;
+            --dark-color: #212121;
+            --light-color: #f5f5f5;
+            --text-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: #f8f9fa;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff20" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,133.3C960,128,1056,96,1152,90.7C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .alert-banner {
+            background-color: #ffebee;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+
+        .crime-categories {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .category-btn {
+            background-color: var(--light-color);
+            border: none;
+            padding: 8px 20px;
+            margin: 5px;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .crime-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .crime-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .crime-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .crime-body {
+            padding: 20px;
+        }
+
+        .severity-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .severity-high {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        .severity-medium {
+            background-color: #f57c00;
+            color: white;
+        }
+
+        .severity-low {
+            background-color: #388e3c;
+            color: white;
+        }
+
+        .crime-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            line-height: 1.4;
+        }
+
+        .crime-excerpt {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .crime-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .stats-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .hotline-section {
+            background: linear-gradient(135deg, #ff6659 0%, #e53935 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hotline-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+    </style>
 </head>
 
 <body>
-    <p>
-        গত বছরটা দারুণভাবে শেষ করা ভিনিসিয়ুস জুনিয়র নতুন বছর শুরু করেছেন লাল কার্ড দেখে। সামাজিক যোগাযোগ মাধ্যমে নিজের ভুলের জন্য দুঃখ প্রকাশ করেছেন রিয়াল মাদ্রিদ তারকা তবে তাতেও সমর্থকদের মন গলেনি। সমালোচনা হচ্ছে তার মাঠের আচরণ নিয়ে। কঠিন সময়ে ভিনিসিয়ুস অবশ্য পাশে পেয়েছেন কোচ কার্লো আনচেলত্তিকে। ইতালিয়ান এই কোচের মতে, ভিনিসিয়ুস হওয়াটা ভীষণ কঠিন কাজ। 
-মাঠের পারফরম্যান্স ভিনিসিয়ুস এখন বিশ্ব সেরাদের কাতারে। গত বছর প্রথমবারের মত জিতেছেন ফিফার দ্য বেস্ট খেতাব। তবে নানা কারণে নিয়মিতই প্রতিপক্ষ সমর্থকদের রোষানলে পড়তে হয় তাকে। বিশেষ করে অ্যাওয়ে ম্যাচে ২৪ বছর বয়সী এই ফুটবলারকে বরাবরই সমর্থকরা কিংবা প্রতিপক্ষ ফুটবলাররা ক্ষেপিয়ে তোলার ফন্দি আটেন। যেখানে নিয়মিতই পা দিতে দেখা যায় ভিনিসিয়ুসকে। তেমনই একটি দৃশ্যপটের পুনরাবৃত্তি হয় ভ্যালেন্সিয়া ম্যাচে।
-আরও পড়ুন
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title"><i class="fas fa-handcuffs me-3"></i>অপরাধ সংবাদ</h1>
+            <p class="page-subtitle">সর্বশেষ অপরাধ, আইন প্রয়োগ ও ন্যায়বিচারের খবর</p>
+        </div>
+    </header>
 
-ছুটির মাঝেই আনচেলত্তিকে ‘কঠিন বার্তা’ এন্দ্রিকের
-ছুটির মাঝেই আনচেলত্তিকে ‘কঠিন বার্তা’ এন্দ্রিকের
-ম্যাচ শুরুর আগেই ভিনিসিয়ুসের ব্যালন ডি’অর না জেতার ফেস্টুন নিয়ে হাজির হন ভ্যালেন্সিয়ার সমর্থকরা। ম্যাচ শুরু হতেই তার পায়ে বল যেতে শিস দিয়ে বার বার ব্রাজিলিয়ান ফরোয়ার্ডকে ক্ষেপিয়ে তোলার চেষ্টা করে তারা। সমর্থকদের সামাল দিতে পারলেও ভ্যালেন্সিয়া গোলকিপারের পাতা ফাঁদে ঠিকই পা দিয়েছেন ভিনিসিয়ুস। তাতে লাল কার্ড দেখে ছেড়েছেন মাঠ। আর আরও একবার তৈরি করেন সমালোচনার প্রেক্ষাপট। 
-ভ্যালেন্সিয়া ম্যাচ শেষে আনচেলত্তি দাবি করেছিলেন, লাল কার্ড দেখানো ঠিক হয়নি ভিনিসিয়ুসকে। রিয়ালের কোপা দেল রের পরবর্তী ম্যাচের আগে ফের তার শিষ্যের প্রতি জানিয়েছেন সমর্থন।
- “এটা লাল কার্ড ছিল না, সর্বোচ্চ হলুদ কার্ড দেওয়া যেতো। সে জন্য আমরা আশা করছি সে নিষেধাজ্ঞা পাবে না। তার জায়গায় নিজেকে রাখলে বোঝা যায়, এমন পরিস্থিতি সামলানো কতটা কঠিন। যে পরিমাণ অপমান তাকে সইতে হয়, তা সহ্য করা সত্যি কঠিন। এটা কঠিন, তবে সে নিজেকে আরও পরিপক্ক করতে চেষ্টা করছে। সে লাল কার্ড নিয়ে দুঃখিত, নিজের ভুল বুঝতে পেরে দুঃখ প্রকাশ এরই মধ্যে করেছে। আমাদের এখন তাই সামনের দিকে তাকাতে হবে।” 
-    </p>
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Alert Banner -->
+        <div class="alert-banner">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-exclamation-triangle me-3 text-danger"></i>
+                <div>
+                    <strong>সংবাদ:</strong> শহরের কেন্দ্রাঞ্চলে বড় অভিযান চলছে। বাসিন্দাদের ওই এলাকা এড়াতে পরামর্শ দেওয়া হচ্ছে।
+                </div>
+            </div>
+        </div>
+
+        <!-- Crime Categories -->
+        <div class="crime-categories">
+            <h5 class="mb-3">বিষয় অনুযায়ী ফিল্টার করুন:</h5>
+            <div class="d-flex flex-wrap">
+                <button class="category-btn active">সমস্ত অপরাধ</button>
+                <button class="category-btn">সাইবার অপরাধ</button>
+                <button class="category-btn">সহিংস অপরাধ</button>
+                <button class="category-btn">সাদা কলার অপরাধ</button>
+                <button class="category-btn">মাদক সম্পর্কিত</button>
+                <button class="category-btn">নিখোঁজ ব্যক্তি</button>
+                <button class="category-btn">যানবাহন নিয়ম লঙ্ঘন</button>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">২৪৭</div>
+                        <div class="stat-label">এই মাসের মামলা</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">৮৯%</div>
+                        <div class="stat-label">সমাধানকৃত মামলা</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">১৫৬</div>
+                        <div class="stat-label">গ্রেফতার</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">৪২</div>
+                        <div class="stat-label">মুলতুবি তদন্ত</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crime News Grid -->
+        <div class="row">
+            <!-- Crime News 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="crime-card">
+                    <img src="https://picsum.photos/seed/crime1/400/200.jpg" alt="Crime News" class="crime-img">
+                    <div class="crime-body">
+                        <span class="severity-badge severity-high">উচ্চ মাত্রার</span>
+                        <h3 class="crime-title">মুখ্য ব্যাংক ডাকাতি: নগদ ১০ মিলিয়ন টাকা চুরি</h3>
+                        <p class="crime-excerpt">সশস্ত্র সন্দেহভাজনরা ব্যস্ত সময়ে জটিল ব্যাংক ডাকাতি পরিচালনা করে, কোটি টাকার নগদ এবং মূল্যবান জিনিসপত্র লুট করে।</p>
+                        <div class="crime-meta">
+                            <span><i class="far fa-clock"></i> ২ ঘণ্টা আগে</span>
+                            <span><i class="far fa-map-marker-alt"></i> সিটি সেন্টার</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crime News 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="crime-card">
+                    <img src="https://picsum.photos/seed/crime2/400/200.jpg" alt="Crime News" class="crime-img">
+                    <div class="crime-body">
+                        <span class="severity-badge severity-medium">মধ্যম মাত্রার</span>
+                        <h3 class="crime-title">সাইবার অপরাধ চক্র ধ্বংস: ১২ জন গ্রেফতার</h3>
+                        <p class="crime-excerpt">আইন প্রয়োগকারী সংস্থাগুলো আন্তর্জাতিকভাবে সমন্বয় করে হাজার হাজার ভুক্তভোগীকে লক্ষ্য করে জটিল অনলাইন প্রতারণা অপারেশন বন্ধ করে।</p>
+                        <div class="crime-meta">
+                            <span><i class="far fa-clock"></i> ৪ ঘণ্টা আগে</span>
+                            <span><i class="far fa-globe"></i> আন্তর্জাতিক</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crime News 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="crime-card">
+                    <img src="https://picsum.photos/seed/crime3/400/200.jpg" alt="Crime News" class="crime-img">
+                    <div class="crime-body">
+                        <span class="severity-badge severity-low">কম মাত্রার</span>
+                        <h3 class="crime-title">নিখোঁজ কিশোরী ৪৮ ঘণ্টার মধ্যে উদ্ধার</h3>
+                        <p class="crime-excerpt">সম্প্রদায়ে স্বস্তি, নিখোঁজ ১৬ বছরের কিশোরীকে সুস্থ অবস্থায় উদ্ধার করা হয়েছে।</p>
+                        <div class="crime-meta">
+                            <span><i class="far fa-clock"></i> ৬ ঘণ্টা আগে</span>
+                            <span><i class="far fa-map-marker-alt"></i> উপনগর</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crime News 4 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="crime-card">
+                    <img src="https://picsum.photos/seed/crime4/400/200.jpg" alt="Crime News" class="crime-img">
+                    <div class="crime-body">
+                        <span class="severity-badge severity-high">উচ্চ মাত্রার</span>
+                        <h3 class="crime-title">মাদক পাচার অভিযান ব্যাহত: ২০০ কেজি মাদক জব্দ</h3>
+                        <p class="crime-excerpt">বৃহৎ মাদক ধ্বংস অভিযান, রাস্তার মূল্যবান মাদক উদ্ধার।</p>
+                        <div class="crime-meta">
+                            <span><i class="far fa-clock"></i> ৮ ঘণ্টা আগে</span>
+                            <span><i class="far fa-map-marker-alt"></i> বন্দর এলাকা</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crime News 5 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="crime-card">
+                    <img src="https://picsum.photos/seed/crime5/400/200.jpg" alt="Crime News" class="crime-img">
+                    <div class="crime-body">
+                        <span class="severity-badge severity-medium">মধ্যম মাত্রার</span>
+                        <h3 class="crime-title">কোর্সেটিভ জালিয়াতি: সিইও গ্রেফতার</h3>
+                        <p class="crime-excerpt">উচ্চ-পর্যায়ের কর্মকর্তাকে কোম্পানির অনুপস্থিত তহবিলের তদন্তের পর গ্রেফতার করা হয়েছে।</p>
+                        <div class="crime-meta">
+                            <span><i class="far fa-clock"></i> ১০ ঘণ্টা আগে</span>
+                            <span><i class="far fa-building"></i> ব্যবসায় এলাকা</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crime News 6 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="crime-card">
+                    <img src="https://picsum.photos/seed/crime6/400/200.jpg" alt="Crime News" class="crime-img">
+                    <div class="crime-body">
+                        <span class="severity-badge severity-low">কম মাত্রার</span>
+                        <h3 class="crime-title">ট্রাফিক নিয়ম লঙ্ঘন অভিযান: ৫০০টি টিকেট বিতরণ</h3>
+                        <p class="crime-excerpt">পুলিশ ট্রাফিক নিরাপত্তা অভিযান পরিচালনা করে বিভিন্ন লঙ্ঘনের জন্য অনেকগুলো দণ্ড প্রদান করে।</p>
+                        <div class="crime-meta">
+                            <span><i class="far fa-clock"></i> ১২ ঘণ্টা আগে</span>
+                            <span><i class="far fa-road"></i> শহরব্যাপী</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hotline Section -->
+        <div class="hotline-section">
+            <h4><i class="fas fa-phone-alt me-2"></i>জরুরি হটলাইন</h4>
+            <p class="lead">২৪/৭ অপরাধ বা সন্দেহজনক কার্যকলাপ রিপোর্ট করুন</p>
+            <div class="hotline-number">1-800-CRIME-HELP</div>
+            <p>আপনার পরিচয় গোপন রাখা হবে</p>
+        </div>
+    </main>
+
+    <script>
+        // Category filter functionality
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                console.log('ফিল্টার:', this.textContent);
+            });
+        });
+    </script>
 </body>
 
 </html>

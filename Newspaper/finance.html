@@ -1,67 +1,445 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অর্থসংবাদ - ক্যাকটাস নিউজ</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-table,th,td{
-    border-collapse: collapse;
-    border: solid rgb(0, 0, 0);
-    /* border-style: dashed; */
-    /* width: 100p%; */
-    height: 60px;
-    /* float: left; */
+        /* CSS অপরিবর্তিত */
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #1b5e20;
+            --accent-color: #66bb6a;
+            --dark-color: #212121;
+            --light-color: #f5f5f5;
+            --text-color: #333;
+        }
 
-}
-table{
-    width: 50%;
-    background-color: yellowgreen;
-    height: 50%;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: #f8f9fa;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .market-ticker {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll 30s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .ticker-item {
+            padding: 0 30px;
+            white-space: nowrap;
+        }
+
+        .stock-up {
+            color: #4caf50;
+        }
+
+        .stock-down {
+            color: #f44336;
+        }
+
+        .market-overview {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .market-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .market-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .market-index {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .market-change {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .market-name {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .finance-categories {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .cat-btn {
+            background-color: var(--light-color);
+            border: none;
+            padding: 8px 20px;
+            margin: 5px;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cat-btn:hover,
+        .cat-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .finance-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            margin-bottom: 25px;
+        }
+
+        .finance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .finance-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .finance-body {
+            padding: 20px;
+        }
+
+        .finance-category {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .finance-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            line-height: 1.4;
+        }
+
+        .finance-excerpt {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .finance-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .currency-converter {
+            background: linear-gradient(135deg, #66bb6a 0%, #2e7d32 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .converter-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .investment-tips {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .tip-card {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .tip-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
     </style>
 </head>
+
 <body>
-    
-<table>
-<tr>
-<th>id</th>
-<th>sub</th>
-<th colspan="2">marks</th>
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">
+                <i class="fas fa-coins me-3"></i>
+                অর্থসংবাদ
+            </h1>
+            <p class="page-subtitle">আপনার বিশ্বস্ত উৎস: আর্থিক সংবাদ, বাজার আপডেট, এবং বিনিয়োগের অন্তর্দৃষ্টি</p>
+        </div>
+    </header>
 
-</tr>
-<tr>
-<td>1287519</td>
-<td rowspan="4">JEE-64</td>
-<td>40</td>
-<td>45</td>
+    <!-- Market Ticker -->
+    <div class="market-ticker">
+        <div class="ticker-content">
+            <span class="ticker-item">
+                <strong>ডাও জোন্স</strong> 38,654.42 <span class="stock-up">+156.78 (+0.41%)</span>
+            </span>
+            <span class="ticker-item">
+                <strong>এস&পি 500</strong> 4,958.61 <span class="stock-up">+23.45 (+0.48%)</span>
+            </span>
+            <span class="ticker-item">
+                <strong>ন্যাসড্যাক</strong> 15,723.45 <span class="stock-down">-45.23 (-0.29%)</span>
+            </span>
+            <span class="ticker-item">
+                <strong>ফটসে 100</strong> 7,645.89 <span class="stock-up">+67.34 (+0.89%)</span>
+            </span>
+            <span class="ticker-item">
+                <strong>নিক্কেই</strong> 35,678.90 <span class="stock-up">+234.56 (+0.66%)</span>
+            </span>
+        </div>
+    </div>
 
-</tr>
-<tr>
-<td>1287519</td>
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Market Overview -->
+        <div class="market-overview">
+            <h3 class="mb-4">বাজারের সারসংক্ষেপ</h3>
+            <div class="row">
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="market-card bg-light">
+                        <div class="market-name">এস&পি 500</div>
+                        <div class="market-index">4,958.61</div>
+                        <div class="market-change stock-up">+0.48%</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="market-card bg-light">
+                        <div class="market-name">ডাও</div>
+                        <div class="market-index">38,654.42</div>
+                        <div class="market-change stock-up">+0.41%</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="market-card bg-light">
+                        <div class="market-name">ন্যাসড্যাক</div>
+                        <div class="market-index">15,723.45</div>
+                        <div class="market-change stock-down">-0.29%</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="market-card bg-light">
+                        <div class="market-name">বিটকয়েন</div>
+                        <div class="market-index">$42,567</div>
+                        <div class="market-change stock-up">+2.34%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<td>30</td>
-<td>85</td>
+        <!-- Finance Categories -->
+        <div class="finance-categories">
+            <div class="d-flex flex-wrap">
+                <button class="cat-btn active">সব সংবাদ</button>
+                <button class="cat-btn">স্টকস</button>
+                <button class="cat-btn">ক্রিপ্টো</button>
+                <button class="cat-btn">ব্যাংকিং</button>
+                <button class="cat-btn">রিয়েল এস্টেট</button>
+                <button class="cat-btn">অর্থনীতি</button>
+                <button class="cat-btn">ব্যক্তিগত অর্থ</button>
+            </div>
+        </div>
 
-</tr>
-<tr>
-<td>1287519</td>
+        <div class="row">
+            <!-- Finance News 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="finance-card">
+                    <img src="https://picsum.photos/seed/finance1/400/200.jpg" alt="Finance News" class="finance-img">
+                    <div class="finance-body">
+                        <span class="finance-category">স্টকস</span>
+                        <h3 class="finance-title">টেক স্টকসের উত্থান: এআই কোম্পানির শক্তিশালী আয় রিপোর্ট</h3>
+                        <p class="finance-excerpt">প্রধান প্রযুক্তি কোম্পানিগুলি আশানুরূপ বা তার চেয়ে ভালো আয়ের ফলে উল্লেখযোগ্য লাভ করেছে এবং এআই-চালিত বৃদ্ধির আশাবাদী পূর্বাভাস দিয়েছে।</p>
+                        <div class="finance-meta">
+                            <span><i class="far fa-clock"></i> ২ ঘন্টা আগে</span>
+                            <span><i class="far fa-chart-line"></i> বাজার</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<td>60</td>
-<td>22</td>
+            <!-- Finance News 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="finance-card">
+                    <img src="https://picsum.photos/seed/finance2/400/200.jpg" alt="Finance News" class="finance-img">
+                    <div class="finance-body">
+                        <span class="finance-category">ক্রিপ্টো</span>
+                        <h3 class="finance-title">বিটকয়েন $43,000 অতিক্রম করলো: প্রতিষ্ঠানিক গ্রহণযোগ্যতা বৃদ্ধি</h3>
+                        <p class="finance-excerpt">প্রধান আর্থিক প্রতিষ্ঠানগুলির বিনিয়োগের ঘোষণা ক্রিপ্টো বাজারকে নতুন উদ্দীপনা দিচ্ছে।</p>
+                        <div class="finance-meta">
+                            <span><i class="far fa-clock"></i> ৩ ঘন্টা আগে</span>
+                            <span><i class="fab fa-bitcoin"></i> ক্রিপ্টো</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-</tr>
-<tr>
-<td>1287519</td>
+            <!-- Finance News 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="finance-card">
+                    <img src="https://picsum.photos/seed/finance3/400/200.jpg" alt="Finance News" class="finance-img">
+                    <div class="finance-body">
+                        <span class="finance-category">ব্যাংকিং</span>
+                        <h3 class="finance-title">ফেডারেল রিজার্ভ আগামি মাসে সম্ভাব্য সুদের হ্রাসের সংকেত</h3>
+                        <p class="finance-excerpt">মুদ্রানীতি শিথিলতার ইঙ্গিত, কারণ মুদ্রাস্ফীতি কিছুটা হ্রাস এবং অর্থনৈতিক বৃদ্ধি মিতভাবে চলেছে।</p>
+                        <div class="finance-meta">
+                            <span><i class="far fa-clock"></i> ৪ ঘন্টা আগে</span>
+                            <span><i class="fas fa-university"></i> ব্যাংকিং</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<td>33</td>
-<td>77</td>
+            <!-- Finance News 4 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="finance-card">
+                    <img src="https://picsum.photos/seed/finance4/400/200.jpg" alt="Finance News" class="finance-img">
+                    <div class="finance-body">
+                        <span class="finance-category">রিয়েল এস্টেট</span>
+                        <h3 class="finance-title">বাড়ির বাজার বছরের দীর্ঘ পতনের পর পুনরুদ্ধারের লক্ষণ দেখাচ্ছে</h3>
+                        <p class="finance-excerpt">মর্টগেজের হার কমছে এবং ক্রেতাদের আস্থা ফিরছে, ফলে প্রধান শহরগুলিতে বাড়ি বিক্রয় বৃদ্ধি পাচ্ছে।</p>
+                        <div class="finance-meta">
+                            <span><i class="far fa-clock"></i> ৫ ঘন্টা আগে</span>
+                            <span><i class="fas fa-home"></i> রিয়েল এস্টেট</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-</tr>
+            <!-- Finance News 5 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="finance-card">
+                    <img src="https://picsum.photos/seed/finance5/400/200.jpg" alt="Finance News" class="finance-img">
+                    <div class="finance-body">
+                        <span class="finance-category">অর্থনীতি</span>
+                        <h3 class="finance-title">GDP বৃদ্ধি প্রত্যাশার ঊর্ধ্বে, ভোক্তা ব্যয় শক্তিশালী</h3>
+                        <p class="finance-excerpt">অর্থনৈতিক সম্প্রসারণ অব্যাহত, শক্তিশালী অভ্যন্তরীণ চাহিদা এবং উন্নত কর্মসংস্থান দ্বারা চালিত।</p>
+                        <div class="finance-meta">
+                            <span><i class="far fa-clock"></i> ৬ ঘন্টা আগে</span>
+                            <span><i class="fas fa-chart-bar"></i> অর্থনীতি</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Finance News 6 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="finance-card">
+                    <img src="https://picsum.photos/seed/finance6/400/200.jpg" alt="Finance News" class="finance-img">
+                    <div class="finance-body">
+                        <span class="finance-category">ব্যক্তিগত অর্থ</span>
+                        <h3 class="finance-title">নতুন অবসর সঞ্চয় নিয়ম: যা জানা প্রয়োজন</h3>
+                        <p class="finance-excerpt">সরকার অবসর অ্যাকাউন্টে অবদান সীমা এবং কর সুবিধার পরিবর্তনের ঘোষণা দিয়েছে।</p>
+                        <div class="finance-meta">
+                            <span><i class="far fa-clock"></i> ৭ ঘন্টা আগে</span>
+                            <span><i class="fas fa-piggy-bank"></i> ব্যক্তিগত অর্থ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-
-</table>
-
-</body>
-</html>
+        <!-- Currency Converter -->
+        <div class="currency-converter">
+            <h3 class="mb-4 text-center">দ্রুত মুদ্রা রূপান্তর</h3>
+            <div class="converter-form">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label class="form-label">পরিমাণ</label>
+                            <input type="number" class="form-control" value="1000">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">থেকে</label>
+                            <select class="form-select">
+                                <option>USD</option>
+                                <option>EUR</option>
+                                <option>GBP</option>
+                                <option>JPY</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label class="form-label">রূপান্তরিত পরিমাণ</label>
+                            <input type="text" class="form-control" value="920.50" readonly>
+                        </div>
+                        <div class="

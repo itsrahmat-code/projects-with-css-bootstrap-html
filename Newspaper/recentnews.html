@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সাম্প্রতিক সংবাদ - ক্যাকটাস নিউজ</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Keep your existing CSS */
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #e53935;
+            --accent-color: #fdd835;
+            --dark-color: #212121;
+            --light-color: #f5f5f5;
+            --text-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans Bengali', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: #f8f9fa;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .news-tabs {
+            background-color: white;
+            padding: 15px 0;
+            border-bottom: 2px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            font-weight: 500;
+            color: var(--text-color);
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .tab-btn:hover {
+            background-color: rgba(26, 115, 232, 0.1);
+        }
+
+        .news-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            margin-bottom: 25px;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .news-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .news-body {
+            padding: 20px;
+        }
+
+        .news-category {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .news-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            line-height: 1.4;
+        }
+
+        .news-excerpt {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .breaking-news {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        .featured-news {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .featured-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            padding: 30px;
+        }
+
+        .featured-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .load-more {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .load-more-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .load-more-btn:hover {
+            background-color: #1557b0;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">সাম্প্রতিক সংবাদ</h1>
+            <p class="page-subtitle">বিশ্বের সর্বশেষ ঘটনার সাথে আপডেট থাকুন</p>
+        </div>
+    </header>
+
+    <!-- Breaking News -->
+    <div class="container">
+        <div class="breaking-news">
+            <div class="d-flex align-items-center">
+                <span class="badge bg-danger me-3">ব্রেকিং</span>
+                <span class="fw-bold">প্রশান্ত মহাসাগরীয় অঞ্চলে বড় ভূমিকম্প, সুনামি সতর্কতা জারি</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- News Tabs -->
+    <div class="news-tabs">
+        <div class="container">
+            <div class="d-flex flex-wrap">
+                <button class="tab-btn active" data-tab="all">সব সংবাদ</button>
+                <button class="tab-btn" data-tab="trending">প্রচলিত</button>
+                <button class="tab-btn" data-tab="latest">সর্বশেষ</button>
+                <button class="tab-btn" data-tab="popular">জনপ্রিয়</button>
+                <button class="tab-btn" data-tab="videos">ভিডিও</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Featured News -->
+        <div class="featured-news">
+            <img src="https://picsum.photos/seed/featured/1200/400.jpg" alt="Featured News" class="featured-img">
+            <div class="featured-content">
+                <span class="news-category">রাজনীতি</span>
+                <h2 class="featured-title">দশকের পর দেশগুলোর মধ্যে ঐতিহাসিক শান্তি চুক্তি স্বাক্ষরিত</h2>
+                <p class="lead">বিশ্বনেতারা জেনেভায় সমঝোতা চুক্তি স্বাক্ষরের জন্য একত্রিত হন, যা দুই দেশের মধ্যে নতুন সহযোগিতা ও কূটনীতি সূচনা করে।</p>
+                <div class="news-meta">
+                    <span><i class="far fa-clock"></i> ২ ঘণ্টা আগে</span>
+                    <span><i class="far fa-eye"></i> ৪৫.২ হাজার ভিউ</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- News Grid -->
+        <div class="row" id="newsGrid">
+            <!-- News Item 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="news-card">
+                    <img src="https://picsum.photos/seed/news1/400/200.jpg" alt="News" class="news-img">
+                    <div class="news-body">
+                        <span class="news-category">প্রযুক্তি</span>
+                        <h3 class="news-title">এআই উন্নতি: নতুন সিস্টেম মানুষের স্তরের বোধগম্যতা অর্জন করল</h3>
+                        <p class="news-excerpt">বিজ্ঞানীরা কৃত্রিম বুদ্ধিমত্তায় একটি বড় অগ্রগতি ঘোষণা করেছেন যা যন্ত্রগুলির মানুষের সাথে ইন্টারঅ্যাকশন পরিবর্তন করতে পারে।</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> ৩ ঘণ্টা আগে</span>
+                            <span><i class="far fa-comment"></i> ১২৪</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Item 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="news-card">
+                    <img src="https://picsum.photos/seed/news2/400/200.jpg" alt="News" class="news-img">
+                    <div class="news-body">
+                        <span class="news-category">খেলা</span>
+                        <h3 class="news-title">চ্যাম্পিয়ন্স লীগ ফাইনাল: আজকের মহারণ প্রত্যাশিত</h3>
+                        <p class="news-excerpt">দুই ফুটবল দানব ইউরোপীয় শীর্ষত্বের জন্য লড়াই করতে প্রস্তুত, যা সাম্প্রতিক সময়ের অন্যতম উত্তেজনাপূর্ণ ফাইনাল হবে।</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> ৪ ঘণ্টা আগে</span>
+                            <span><i class="far fa-comment"></i> ৮৯</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Item 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="news-card">
+                    <img src="https://picsum.photos/seed/news3/400/200.jpg" alt="News" class="news-img">
+                    <div class="news-body">
+                        <span class="news-category">অর্থনীতি</span>
+                        <h3 class="news-title">ইকোনমিক ডেটার উপর স্টক মার্কেটের উত্থান</h3>
+                        <p class="news-excerpt">নতুন অর্থনৈতিক সূচকগুলি পরবর্তী ত্রৈমাসিকে প্রত্যাশার চেয়ে শক্তিশালী বৃদ্ধি নির্দেশ করে, যা বিশ্ব বাজারে উল্লাস সৃষ্টি করছে।</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> ৫ ঘণ্টা আগে</span>
+                            <span><i class="far fa-comment"></i> ৫৬</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Item 4 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="news-card">
+                    <img src="https://picsum.photos/seed/news4/400/200.jpg" alt="News" class="news-img">
+                    <div class="news-body">
+                        <span class="news-category">বিনোদন</span>
+                        <h3 class="news-title">ব্লকবাস্টার সিনেমা বক্স অফিস রেকর্ড ভেঙেছে</h3>
+                        <p class="news-excerpt">প্রত্যাশিত চলচ্চিত্রটি খোলা সপ্তাহান্তে রেকর্ড ভেঙেছে, $500 মিলিয়ন অতিক্রম করে দ্রুততম সিনেমা হয়েছে।</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> ৬ ঘণ্টা আগে</span>
+                            <span><i class="far fa-comment"></i> ২০৩</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Item 5 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="news-card">
+                    <img src="https://picsum.photos/seed/news5/400/200.jpg" alt="News" class="news-img">
+                    <div class="news-body">
+                        <span class="news-category">অপরাধ</span>
+                        <h3 class="news-title">আন্তর্জাতিক কর্তৃপক্ষ বড় সাইবার অপরাধ চক্র ভেঙেছে</h3>
+                        <p class="news-excerpt">একাধিক দেশের আইন প্রয়োগকারী সংস্থা একটি জটিল সাইবার অপরাধ নেটওয়ার্ক ধ্বংস করতে সহযোগিতা করেছে।</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> ৭ ঘণ্টা আগে</span>
+                            <span><i class="far fa-comment"></i> ৭৮</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Item 6 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="news-card">
+                    <img src="https://picsum.photos/seed/news6/400/200.jpg" alt="News" class="news-img">
+                    <div class="news-body">
+                        <span class="news-category">স্বাস্থ্য</span>
+                        <h3 class="news-title">নতুন চিকিৎসা আবিষ্কার লক্ষ লক্ষ মানুষের জন্য আশা</h3>
+                        <p class="news-excerpt">গবেষকরা এমন একটি চিকিৎসা আবিষ্কার করেছেন যা বিশ্বের কোটি মানুষের জন্য আশার আলো।</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> ৮ ঘণ্টা আগে</span>
+                            <span><i class="far fa-comment"></i> ১৪৫</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load More -->
+        <div class="load-more">
+            <button class="load-more-btn">আরও সংবাদ লোড করুন</button>
+        </div>
+    </main>
+
+    <script>
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                console.log('লোড হচ্ছে ট্যাব:', this.getAttribute('data-tab'));
+            });
+        });
+
+        document.querySelector('.load-more-btn').addEventListener('click', function() {
+            const newsGrid = document.getElementById('newsGrid');
+            const newItems = `
+                <div class="col-lg-4 col-md-6">
+                    <div class="news-card">
+                        <img src="https://picsum.photos/seed/news${Date.now()}/400/200.jpg" alt="News" class="news-img">
+                        <div class="news-body">
+                            <span class="news-category">ব্রেকিং</span>
+                            <h3 class="news-title">অতিরিক্ত সংবাদ লোড হয়েছে</h3>
+                            <p class="news-excerpt">লোড মোড়ের কার্যকারিতা প্রদর্শনের জন্য এটি একটি ডাইনামিকভাবে লোড হওয়া সংবাদ আইটেম।</p>
+                            <div class="news-meta">
+                                <span><i class="far fa-clock"></i> মাত্র এখন</span>
+                                <span><i class="far fa-comment"></i> ০</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            newsGrid.insertAdjacentHTML('beforeend', newItems);
+        });
+    </script>
+</body>
+
+</html>

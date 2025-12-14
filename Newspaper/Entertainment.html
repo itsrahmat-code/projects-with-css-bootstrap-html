@@ -1,58 +1,438 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>বিনোদন সংবাদ - ক্যাকটাস নিউজ</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #9c27b0;
+            --secondary-color: #7b1fa2;
+            --accent-color: #ba68c8;
+            --dark-color: #212121;
+            --light-color: #f5f5f5;
+            --text-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: #f8f9fa;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .trending-bar {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+
+        .trending-item {
+            display: inline-block;
+            margin: 0 15px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .trending-item:hover {
+            opacity: 0.8;
+        }
+
+        .ent-categories {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .cat-btn {
+            background-color: var(--light-color);
+            border: none;
+            padding: 8px 20px;
+            margin: 5px;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cat-btn:hover,
+        .cat-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .featured-story {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .featured-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .featured-content {
+            padding: 30px;
+        }
+
+        .featured-badge {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .featured-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .ent-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            margin-bottom: 25px;
+        }
+
+        .ent-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .ent-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .ent-body {
+            padding: 20px;
+        }
+
+        .ent-category {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .ent-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            line-height: 1.4;
+        }
+
+        .ent-excerpt {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .ent-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .rating {
+            color: #ffc107;
+            font-size: 0.9rem;
+        }
+
+        .celebrity-spotlight {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .celebrity-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .celebrity-card:hover {
+            transform: scale(1.05);
+        }
+
+        .celebrity-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--primary-color);
+        }
+
+        .events-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .event-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .event-date {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-right: 20px;
+            min-width: 80px;
+        }
+
+        .event-day {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .event-month {
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
+
 <body>
-    <section id="home">
-        <div class="container bg-info my-2">
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">
+                <i class="fas fa-photo-film me-3"></i>
+                বিনোদন সংবাদ
+            </h1>
+            <p class="page-subtitle">আপনার দৈনন্দিন সিনেমা, সঙ্গীত, সেলিব্রিটি এবং পপ সংস্কৃতির খবর</p>
+        </div>
+    </header>
 
-            <div class="text-center">
-                <h1 class="text-light">Home</h1>
-            </div>
-            <hr>
-
-            <div class="row ">
-                <div class="col-md-6 d-flex justify-content-center">
-                    <img src="dragon.png" alt="James Goslin"
-                        class="rounded-circle border border-3 border-success mb-2">
-                </div>
-                <div class="col-md-6">
-                    <p>James Arthur Gosling OC (born 19 May 1955) is a Canadian computer scientist, best known as the
-                        founder and lead designer behind the Java programming language.</p>
-
-                    <p>Gosling was elected a member of the National Academy of Engineering in 2004 for the conception
-                        and
-                        development of the architecture for the Java programming language and for contributions to
-                        window
-                        systems.</p>
-
-                    <p>Gosling was born in Calgary, Alberta, to Joyce Morrison and Dave Gosling. He is of English,
-                        Welsh,
-                        Scottish, and Icelandic descent. Gosling attended William Aberhart High School. While in high
-                        school, he wrote some of the software to analyze data from the ISIS 2 satellite, working for the
-                        University of Calgary physics department. He received a Bachelor of Science from the University
-                        of
-                        Calgary and his M.A. and Ph.D. from Carnegie Mellon University, all in computer science. He
-                        wrote a
-                        version of Emacs called Gosling Emacs (Gosmacs) while working toward his doctorate. He built a
-                        multi-processor version of Unix for a 16-way computer system while at Carnegie Mellon
-                        University,
-                        before joining Sun Microsystems. He also developed several compilers and mail systems there.
-                        Gosling
-                        has two children, Katie and Kelsey, who are half siblings from his two marriages.</p>
-
-                </div>
-
-
-
+    <!-- Trending Bar -->
+    <div class="trending-bar">
+        <div class="container">
+            <div class="d-flex align-items-center overflow-auto">
+                <span class="me-3"><i class="fas fa-fire"></i> ট্রেন্ডিং:</span>
+                <span class="trending-item">#অস্কার২০২৪</span>
+                <span class="trending-item">#টেলরসুইফট</span>
+                <span class="trending-item">#মার্ভেলস্টুডিওস</span>
+                <span class="trending-item">#গ্র্যামি</span>
+                <span class="trending-item">#নেটফ্লিক্স</span>
             </div>
         </div>
-    </section>
-</body>
-</html>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Entertainment Categories -->
+        <div class="ent-categories">
+            <div class="d-flex flex-wrap">
+                <button class="cat-btn active">সব</button>
+                <button class="cat-btn">সিনেমা</button>
+                <button class="cat-btn">সঙ্গীত</button>
+                <button class="cat-btn">টিভি শো</button>
+                <button class="cat-btn">সেলিব্রিটি</button>
+                <button class="cat-btn">গেমিং</button>
+                <button class="cat-btn">বই</button>
+                <button class="cat-btn">ফ্যাশন</button>
+            </div>
+        </div>
+
+        <!-- Featured Story -->
+        <div class="featured-story">
+            <img src="https://picsum.photos/seed/featured-ent/1200/400.jpg" alt="Featured Entertainment" class="featured-img">
+            <div class="featured-content">
+                <span class="featured-badge">বিশেষ সংবাদ</span>
+                <h2 class="featured-title">ব্লকবাস্টার সিজন: ২০২৪ সালের সবচেয়ে প্রতীক্ষিত সিনেমা প্রকাশিত</h2>
+                <p class="lead">হলিউডে আসছে এক অভূতপূর্ব সিনেমার বছর, যেখানে থাকবে এ-লিস্ট তারকা এবং নতুন ফ্র্যাঞ্চাইজিগুলি যা বক্স অফিস দখল করবে।</p>
+                <div class="ent-meta">
+                    <span><i class="far fa-clock"></i> ৩ ঘণ্টা আগে</span>
+                    <span><i class="far fa-eye"></i> ১২৫.৩ হাজার দর্শক</span>
+                    <span class="rating"><i class="fas fa-star"></i> ৪.৮</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Entertainment News 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="ent-card">
+                    <img src="https://picsum.photos/seed/ent1/400/200.jpg" alt="Entertainment News" class="ent-img">
+                    <div class="ent-body">
+                        <span class="ent-category">সিনেমা</span>
+                        <h3 class="ent-title">সারপ্রাইজ ঘোষণা: প্রিয় ফ্র্যাঞ্চাইজির নতুন ট্রিলজি আসছে</h3>
+                        <p class="ent-excerpt">স্টুডিও নিশ্চিত করল যে প্রিয় সিরিজের তিনটি নতুন সিনেমা বানানো হচ্ছে।</p>
+                        <div class="ent-meta">
+                            <span><i class="far fa-clock"></i> ২ ঘণ্টা আগে</span>
+                            <span class="rating"><i class="fas fa-star"></i> ৪.৯</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entertainment News 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="ent-card">
+                    <img src="https://picsum.photos/seed/ent2/400/200.jpg" alt="Entertainment News" class="ent-img">
+                    <div class="ent-body">
+                        <span class="ent-category">সঙ্গীত</span>
+                        <h3 class="ent-title">পপ সেনসেশন নতুন অ্যালবামের সাথে স্ট্রিমিং রেকর্ড ভাঙল</h3>
+                        <p class="ent-excerpt">চার্ট-শীর্ষ শিল্পী প্রথম সপ্তাহেই স্ট্রিমিং সংখ্যায় অভূতপূর্ব সাফল্য অর্জন করলেন।</p>
+                        <div class="ent-meta">
+                            <span><i class="far fa-clock"></i> ৪ ঘণ্টা আগে</span>
+                            <span class="rating"><i class="fas fa-star"></i> ৪.৭</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entertainment News 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="ent-card">
+                    <img src="https://picsum.photos/seed/ent3/400/200.jpg" alt="Entertainment News" class="ent-img">
+                    <div class="ent-body">
+                        <span class="ent-category">টিভি শো</span>
+                        <h3 class="ent-title">অ্যাওয়ার্ড বিজয়ী সিরিজ চূড়ান্ত সিজন ঘোষণা করল</h3>
+                        <p class="ent-excerpt">সমালোচকদের প্রশংসিত শো ঘোষণা করল যে এটি শেষ সিজন হবে, যা একটি মহাকাব্যিক সমাপ্তি আনবে।</p>
+                        <div class="ent-meta">
+                            <span><i class="far fa-clock"></i> ৫ ঘণ্টা আগে</span>
+                            <span class="rating"><i class="fas fa-star"></i> ৪.৮</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entertainment News 4 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="ent-card">
+                    <img src="https://picsum.photos/seed/ent4/400/200.jpg" alt="Entertainment News" class="ent-img">
+                    <div class="ent-body">
+                        <span class="ent-category">সেলিব্রিটি</span>
+                        <h3 class="ent-title">পাওয়ার কাপল সারপ্রাইজ বিয়ের ঘোষণা করল</h3>
+                        <p class="ent-excerpt">হলিউডের প্রিয় জুটি ঘনিষ্ঠ বন্ধুবান্ধব ও পরিবারের উপস্থিতিতে বিয়ে সম্পন্ন করল।</p>
+                        <div class="ent-meta">
+                            <span><i class="far fa-clock"></i> ৬ ঘণ্টা আগে</span>
+                            <span class="rating"><i class="fas fa-star"></i> ৪.৬</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entertainment News 5 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="ent-card">
+                    <img src="https://picsum.photos/seed/ent5/400/200.jpg" alt="Entertainment News" class="ent-img">
+                    <div class="ent-body">
+                        <span class="ent-category">গেমিং</span>
+                        <h3 class="ent-title">হলিডে রিলিজের জন্য নতুন গেম কনসোল ঘোষণা</h3>
+                        <p class="ent-excerpt">প্রযুক্তি জায়ান্ট নতুন জেনারেশনের গেমিং সিস্টেম ঘোষণা করল যা নতুন ফিচার এবং এক্সক্লুসিভ গেম নিয়ে আসবে।</p>
+                        <div class="ent-meta">
+                            <span><i class="far fa-clock"></i> ৭ ঘণ্টা আগে</span>
+                            <span class="rating"><i class="fas fa-star"></i> ৪.৯</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entertainment News 6 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="ent-card">
+                    <img src="https://picsum.photos/seed/ent6/400/200.jpg" alt="Entertainment News" class="ent-img">
+                    <div class="ent-body">
+                        <span class="ent-category">ফ্যাশন</span>
+                        <h3 class="ent-title">মেট গালা ২০২৪: রেড কার্পেটে সবচেয়ে সাহসী লুক</h3>
+                        <p class="ent-excerpt">ফ্যাশনের বড় রাত দর্শকদের প্রদর্শন করল অসাধারণ সৃজনশীলতা এবং সীমা অতিক্রমকারী ডিজাইন।</p>
+                        <div class="ent-meta">
+                            <span><i class="far fa-clock"></i> ৮ ঘণ্টা আগে</span>
+                            <span class="rating"><i class="fas fa-star"></i> ৪.৭</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Celebrity Spotlight -->
+        <div class="celebrity-spotlight">
+            <h3 class="mb-4 text-center">সেলিব্রিটি স্পটলাইট</h3>
+            <div class="row">
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="celebrity-card">
+                        <img src="https://picsum.photos/seed/celeb1/120/120.jpg" alt="Celebrity" class="celebrity-img">
+                        <h5>এমা স্টোন</h5>
+                        <p class="text-muted">অভিনেত্রী</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="celebrity-card">
+                        <img src="https://picsum.photos/seed/celeb2/120/120.jpg" alt="Celebrity" class="celebrity-img">
+                        <h5>ক্রিস হেমসওয়ার্থ</h5>
+                        <p class="text-muted">অভিনেতা</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="celebrity-card">
+                        <img src="https://picsum.photos/seed/celeb3/120/120.jpg" alt="Celebrity" class="celebrity-img">
+                        <h5>টেলর সুইফট</h5>
+                        <p class="text-muted">গায়কী</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    

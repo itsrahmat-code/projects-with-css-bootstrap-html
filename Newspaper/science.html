@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বিজ্ঞান ও প্রযুক্তি - ক্যাকটাস নিউজ</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts for better typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #0a192f;
+            --secondary-color: #172a45;
+            --accent-color: #64ffda;
+            --text-light: #ccd6f6;
+            --text-muted: #8892b0;
+            --white: #ffffff;
+            --card-bg: #1e2a3a;
+            --hover-bg: #233554;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 1200px;
+        }
+
+        /* --- Header & Page Title --- */
+        .page-header {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            padding: 4rem 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            font-weight: 300;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* --- Breaking News Ticker --- */
+        .breaking-tech {
+            background-color: var(--secondary-color);
+            padding: 1rem 0;
+            border-bottom: 2px solid var(--accent-color);
+            overflow: hidden;
+        }
+
+        .breaking-content {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            animation: scroll-left 25s linear infinite;
+        }
+
+        .breaking-label {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 0.25rem 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* --- Category Buttons --- */
+        .tech-categories {
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .category-btn {
+            background-color: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--text-muted);
+            padding: 0.5rem 1.25rem;
+            margin: 0.25rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* --- Featured Discovery Section --- */
+        .featured-discovery {
+            position: relative;
+            margin: 3rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+            transition: transform 0.3s ease;
+        }
+        .featured-discovery:hover {
+            transform: translateY(-5px);
+        }
+
+        .featured-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        .featured-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2.5rem;
+            background: linear-gradient(to top, rgba(10, 25, 47, 0.9) 0%, rgba(10, 25, 47, 0.6) 60%, transparent 100%);
+        }
+
+        .featured-badge {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .featured-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .tech-meta span {
+            margin-right: 1.5rem;
+        }
+
+        /* --- Tech News Cards --- */
+        .tech-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.9);
+        }
+
+        .tech-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .tech-body {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tech-category {
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tech-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--white);
+        }
+
+        .tech-excerpt {
+            color: var(--text-muted);
+            flex-grow: 1;
+        }
+
+        /* --- Innovation Stats --- */
+        .innovation-stats {
+            margin: 4rem 0;
+            padding: 3rem 2rem;
+            background-color: var(--secondary-color);
+            border-radius: 12px;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Research Papers --- */
+        .research-papers {
+            margin: 4rem 0;
+        }
+        .research-papers h3 {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .paper-item {
+            display: flex;
+            align-items: flex-start;
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .paper-item:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .paper-icon {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .paper-content {
+            flex-grow: 1;
+        }
+
+        .paper-title {
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .paper-authors, .paper-journal {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Events Section --- */
+        .events-section {
+            margin: 4rem 0;
+        }
+        .events-section h3 {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .event-card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+        .event-card:hover {
+            transform: translateX(5px);
+        }
+
+        .event-date {
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- Tech Quiz --- */
+        .tech-quiz {
+            background-color: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 4rem 0;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .quiz-question {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        .quiz-option:hover {
+            background-color: var(--hover-bg);
+            border-color: var(--accent-color);
+        }
+        
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--secondary-color);
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">
+                <i class="fas fa-microscope me-3"></i>
+                বিজ্ঞান ও প্রযুক্তি
+            </h1>
+            <p class="page-subtitle">মানব জ্ঞানের সীমা ও উদ্ভাবনের সন্ধান</p>
+        </div>
+    </header>
+
+    <!-- Breaking Tech News -->
+    <div class="breaking-tech">
+        <div class="container">
+            <div class="breaking-content">
+                <span class="breaking-label">সর্বশেষ খবর</span>
+                <span class="fw-bold">বিজ্ঞানীরা কোয়ান্টাম কম্পিউটিংয়ে সাফল্য অর্জন করেছেন: ১০০০-কিউবিট প্রসেসর মাইলস্টোন</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Tech Categories -->
+        <div class="tech-categories">
+            <div class="d-flex flex-wrap justify-content-center">
+                <button class="category-btn active">সমস্ত বিষয়</button>
+                <button class="category-btn">কৃত্রিম বুদ্ধিমত্তা</button>
+                <button class="category-btn">মহাকাশ</button>
+                <button class="category-btn">চিকিৎসা</button>
+                <button class="category-btn">পরিবেশ</button>
+                <button class="category-btn">রোবটিক্স</button>
+                <button class="category-btn">পদার্থবিদ্যা</button>
+                <button class="category-btn">জীবপ্রযুক্তি</button>
+            </div>
+        </div>
+
+        <!-- Featured Discovery -->
+        <div class="featured-discovery">
+            <img src="https://picsum.photos/seed/quantum/1200/400.jpg" alt="Featured Discovery" class="featured-img">
+            <div class="featured-content">
+                <span class="featured-badge">মহা সাফল্য</span>
+                <h2 class="featured-title">বিপ্লবী কোয়ান্টাম কম্পিউটার এমন জটিল সমস্যা সমাধান করেছে মিনিটের মধ্যে যা ক্লাসিকাল কম্পিউটারকে ১০,০০০ বছর সময় নিত</h2>
+                <p class="lead">MIT-এর গবেষকরা ১০০০-কিউবিট প্রসেসরের মাধ্যমে কোয়ান্টাম সাপ্রিমেসি প্রদর্শন করেছেন, যা কম্পিউটিং ইতিহাসে একটি গুরুত্বপূর্ণ মাইলফলক এবং অভূতপূর্ব কম্পিউটেশনাল ক্ষমতার দরজা খুলেছে।</p>
+                <div class="tech-meta">
+                    <span><i class="far fa-clock"></i> ১ ঘণ্টা আগে</span>
+                    <span><i class="far fa-eye"></i> ৮৯.২ হাজার বার দেখা হয়েছে</span>
+                    <span><i class="fas fa-share"></i> ৩.৪ হাজার শেয়ার</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Tech News 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="tech-card">
+                    <img src="https://picsum.photos/seed/mars/400/200.jpg" alt="Tech News" class="tech-img">
+                    <div class="tech-body">
+                        <span class="tech-category">মহাকাশ</span>
+                        <h3 class="tech-title">মার্স উপনিবেশ প্রকল্প: ২০৩৫ সালের জন্য প্রথম স্থায়ী মানব বসতি পরিকল্পনা</h3>
+                        <p class="tech-excerpt">SpaceX এবং NASA যৌথ উদ্যোগ ঘোষণা করেছে, যা উন্নত জীবন সহায়ক ব্যবস্থা ও নবায়নযোগ্য শক্তি অবকাঠামোসহ স্বয়ংসম্পূর্ণ মানব বসতি স্থাপন করবে।</p>
+                        <div class="tech-meta">
+                            <span><i class="far fa-clock"></i> ২ ঘণ্টা আগে</span>
+                            <span><i class="fas fa-rocket"></i> মহাকাশ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech News 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="tech-card">
+                    <img src="https://picsum.photos/seed/ai-medical/400/200.jpg" alt="Tech News" class="tech-img">
+                    <div class="tech-body">
+                        <span class="tech-category">এআই ও চিকিৎসা</span>
+                        <h3 class="tech-title">ক্যানসার লক্ষণ দেখা দেওয়ার ৫ বছর আগে সনাক্ত করে এআই সিস্টেম</h3>
+                        <p class="tech-excerpt">একটি বিপ্লবী মেশিন লার্নিং অ্যালগরিদম প্রাথমিক ক্যানসার সনাক্তকরণে ৯৯.৭% নির্ভুলতা অর্জন করেছে, যা প্রতিরোধমূলক চিকিৎসার মাধ্যমে মিলিয়ন মানুষকে বাঁচাতে পারে।</p>
+                        <div class="tech-meta">
+                            <span><i class="far fa-clock"></i> ৩ ঘণ্টা আগে</span>
+                            <span><i class="fas fa-brain"></i> এআই</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech News 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="tech-card">
+                    <img src="https://picsum.photos/seed/fusion/400/200.jpg" alt="Tech News" class="tech-img">
+                    <div class="tech-body">
+                        <span class="tech-category">শক্তি</span>
+                        <h3 class="tech-title">নিউক্লিয়ার ফিউশন রিয়েক্টর প্রথমবারের মতো নেট এনার্জি অর্জন করেছে</h3>
+                        <p class="tech-excerpt">আন্তর্জাতিক গবেষক দল সফলভাবে একটি টেকসই ফিউশন বিক্রিয়া প্রদর্শন করেছে যা উৎপাদিত শক্তি খরচের চেয়ে বেশি, যা পরিচ্ছন্ন এবং সীমাহীন শক্তির দিকে এগিয়ে নিয়ে যায়।</p>
+                        <div class="tech-meta">
+                            <span><i class="far fa-clock"></i> ৪ ঘণ্টা আগে</span>
+                            <span><i class="fas fa-atom"></i> পদার্থবিদ্যা</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech News 4 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="tech-card">
+                    <img src="https://picsum.photos/seed/brain-interface/400/200.jpg" alt="Tech News" class="tech-img">
+                    <div class="tech-body">
+                        <span class="tech-category">নিউরোটেকনোলজি</span>
+                        <h3 class="tech-title">ব্রেইন-কম্পিউটার ইন্টারফেস প্যারালাইজড রোগীদের আবার হাঁটতে সাহায্য করছে</h3>
+                        <p class="tech-excerpt">স্নায়বিক ইমপ্লান্ট প্রযুক্তি প্যারালাইজড ব্যক্তিদের শুধু চিন্তা করে রোবটিক অঙ্গ নিয়ন্ত্রণ করতে সক্ষম করছে, বছরের পর বছর পর গতিশীলতা ফিরিয়ে দিচ্ছে।</p>
+                        <div class="tech-meta">
+                            <span><i class="far fa-clock"></i> ৫ ঘণ্টা আগে</span>
+                            <span><i class="fas fa-brain"></i> নিউরোটেক</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech News 5 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="tech-card">
+                    <img src="https://picsum.photos/seed/climate-tech/400/200.jpg" alt="Tech News" class="tech-img">
+                    <div class="tech-body">
+                        <span class="tech-category">পরিবেশ</span>
+                        <h3 class="tech-title">কার্বন ক্যাপচার প্রযুক্তি দৈনিক ১০ লাখ টন CO2 অপসারণ করছে</h3>
+                        <p class="tech-excerpt">নতুন সরাসরি বায়ু ক্যাপচার সুবিধাগুলি বিশ্বব্যাপী স্থাপিত হয়েছে, যা বায়ুমণ্ডলের কার্বন স্তরে উল্লেখযোগ্য প্রভাব ফেলতে শুরু করেছে এবং জলবায়ু পরিবর্তনের লড়াইয়ে আশা জাগাচ্ছে।</p>
+                        <div class="tech-meta">
+                            <span><i class="far fa-clock"></i> ৬ ঘণ্টা আগে</span>
+                            <span><i class="fas fa-leaf"></i> জলবায়ু</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech News 6 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="tech-card">
+                    <img src="https://picsum.photos/seed/quantum-internet/400/200.jpg" alt="Tech News" class="tech-img">
+                    <div class="tech-body">
+                        <span class="tech-category">কোয়ান্টাম</span>
+                        <h3 class="tech-title">কোয়ান্টাম ইন্টারনেট সফলভাবে ১,০০০ কিমি তথ্য প্রেরণ করেছে</h3>
+                        <p class="tech-excerpt">বিজ্ঞানীরা রেকর্ড দূরত্বে হ্যাক-প্রুফ কোয়ান্টাম যোগাযোগ প্রদর্শন করেছেন, যা উল্ট্রা-সিকিউর বৈশ্বিক কোয়ান্টাম নেটওয়ার্কের পথ প্রশস্ত করছে।</p>
+                        <div class="tech-meta">
+                            <span><i class="far fa-clock"></i> ৭ ঘণ্টা আগে</span>
+                            <span><i class="fas fa-network-wired"></i> কোয়ান্টাম</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Innovation Stats -->
+        <div class="innovation-stats">
+            <h3 class="text-center mb-4">উদ্ভাবনের সংক্ষিপ্ত চিত্র</h3>
+            <div class="row">
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-microscope"></i></div>
+                        <div class="stat-number">২,৮৪৭</div>
+                        <div class="stat-label">এই মাসে প্রকাশিত গবেষণাপত্র</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-lightbulb"></i></div>
+                        <div class="stat-number">৪৫৬</div>
+                        <div class="stat-label">সাপ্তাহিক পেটেন্ট</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-flask"></i></div>
+                        <div class="stat-number">৮৯</div>
+                        <div class="stat-label">সক্রিয় ক্লিনিকাল ট্রায়াল</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-rocket"></i></div>
+                        <div class="stat-number">২৩</div>
+                        <div class="stat-label">এই বছরে মহাকাশ অভিযান</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Research Papers -->
+        <div class="research-papers">
+            <h3 class="mb-4">সর্বশেষ গবেষণাপত্র</h3>
+            <div class="paper-item">
+                <div class="paper-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="paper-content">
+                    <div class="paper-title">CRISPR-Cas9 জিন সম্পাদনা মানব ট্রায়ালে জেনেটিক রোগ সাফল্যের সাথে নিরাময় করেছে</div>
+                    <div class="paper-authors">ড. সারা চেন ইত্যাদি, হার্ভার্ড মেডিকেল স্কুল</div>
+                    <div class="paper-journal">Nature Medicine • ২ ঘণ্টা আগে প্রকাশিত</div>
+                </div>
+            </div>
+            <div class="paper-item">
+                <div class="paper-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="paper-content">
+                    <div class="paper-title">মেশিন লার্নিং প্রোটিন ফোল্ডিং ৯৮% নির্ভুলতায় পূর্বাভাস দেয়</div>
+                    <div class="paper-authors">প্রোফ. জেমস উইলসন ইত্যাদি, স্ট্যানফোর্ড AI ল্যাব</div>
+                    <div class="paper-journal">Science • ৫ ঘণ্টা আগে প্রকাশিত</div>
+                </div>
+            </div>
+            <div class="paper-item">
+                <div class="paper-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="paper-content">
+                    <div class="paper-title">গ্রাফিন-ভিত্তিক সুপারক্যাপাসিটার ১০ গুণ বেশি শক্তি ঘনত্ব অর্জন করেছে</div>
+                    <div class="paper-authors">ড. মারিয়া রদ্রিগেজ ইত্যাদি, MIT Materials Lab</div>
+                    <div class="paper-journal">Advanced Materials • ১ দিন আগে প্রকাশিত</div>
+                </div>
+            </div>
+            <div class="paper-item">
+                <div class="paper-icon"><i class="fas fa-file-alt"></i></div>
+                <div class="paper-content">
+                    <div class="paper-title">স্বায়ত্তশাসিত ন্যানোবট ক্যানসার কোষ সফলভাবে লক্ষ্য করে ধ্বংস করেছে</div>
+                    <div class="paper-authors">ড. আহমেদ হাসান ইত্যাদি, জনস হপকিন্স</div>
+                    <div class="paper-journal">Nature Nanotechnology • ২ দিন আগে প্রকাশিত</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Events -->
+        <div class="events-section">
+            <h3 class="mb-4">আসন্ন বিজ্ঞান ও প্রযুক্তি ইভেন্ট</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="event-card">
+                        <div class="event-date">২০-২২ ফেব্রুয়ারি, ২০২৪</div>
+                        <h5>গ্লোবাল এআই সামিট ২০২৪</h5>
+                        <p class="text-muted mb-0">সান ফ্রান্সিসকো, CA • শীর্ষ এআই গবেষক ও শিল্প নেতারা সর্বশেষ উদ্ভাবনের আলোচনা করবেন</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="event-card">
+                        <div class="event-date">৫-৭ মার্চ, ২০২৪</div>
+                        <h5>আন্তর্জাতিক মহাকাশ সম্মেলন</h5>
+                        <p class="text-muted mb-0">হিউস্টন, TX • ভবিষ্যতের মহাকাশ অনুসন্ধান ও উপনিবেশ নীতি নিয়ে আলোচনা</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="event-card">
+                        <div class="event-date">১৫-১৭ মার্চ, ২০২৪</div>
+                        <h5>জীবপ্রযুক্তি উদ্ভাবন ফোরাম</h5>
+                        <p class="text-muted mb-0">বস্টন, MA • জেনেটিক ইঞ্জিনিয়ারিং ও সিনথেটিক বায়োলজিতে সর্বশেষ অগ্রগতি</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="event-card">
+                        <div class="event-date">২-৪ এপ্রিল, ২০২৪</div>
+                        <h5>কোয়ান্টাম কম্পিউটিং সিম্পোজিয়াম</h5>
+                        <p class="text-muted mb-0">জুরিখ, সুইজারল্যান্ড • কোয়ান্টাম সাপ্রিমেসি ও ব্যবহারিক প্রয়োগ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech Quiz -->
+        <div class="tech-quiz">
+            <h3 class="mb-4">আপনার জ্ঞান পরীক্ষা করুন</h3>
+            <div class="quiz-question">প্রথম ব্ল্যাক হোলের নাম কী যা কখনো ছবি তোলা হয়েছে?</div>
+            <div class="quiz-options">
+                <div class="quiz-option">স্যাজিটেরিয়াস A*</div>
+                <div class="quiz-option">M87*</div>
+                <div class="quiz-option">সাইগনাস X-1</div>
+                <div class="quiz-option">V616 মোনোসেরোটিস</div>
+            </div>
+            <p class="mt-3 mb-0">উত্তর: M87* - ইভেন্ট হরাইজন টেলিস্কোপ ২০১৯ সালে মেসিয়ার ৮৭ গ্যালাক্সিতে প্রথম ব্ল্যাক হোলের ছবি তুলেছিল</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; ২০২৪ ক্যাকটাস নিউজ. সর্বসত্ত্ব সংরক্ষিত।</p>
+        </div>
+    </footer>
+</body>
+
+</html>

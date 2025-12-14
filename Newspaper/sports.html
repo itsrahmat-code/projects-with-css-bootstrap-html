@@ -1,89 +1,477 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>স্পোর্টস নিউজ - ক্যাকটাস নিউজ</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #f44336;
+            --secondary-color: #d32f2f;
+            --accent-color: #ef5350;
+            --dark-color: #212121;
+            --light-color: #f5f5f5;
+            --text-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: #f8f9fa;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff20" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,133.3C960,128,1056,96,1152,90.7C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .live-scores {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+
+        .live-badge {
+            background-color: #fff;
+            color: var(--primary-color);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .sports-categories {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .sport-btn {
+            background-color: var(--light-color);
+            border: none;
+            padding: 8px 20px;
+            margin: 5px;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sport-btn:hover,
+        .sport-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .featured-match {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .featured-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .match-details {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .teams {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .team {
+            text-align: center;
+        }
+
+        .team-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .vs {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .score {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .sports-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            margin-bottom: 25px;
+        }
+
+        .sports-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .sports-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .sports-body {
+            padding: 20px;
+        }
+
+        .sports-category {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .sports-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            line-height: 1.4;
+        }
+
+        .sports-excerpt {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .sports-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .standings-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .table {
+            margin-top: 20px;
+        }
+
+        .position-badge {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .top-scorers {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .scorer-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .scorer-rank {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-right: 20px;
+            min-width: 40px;
+        }
+
+        .scorer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .scorer-info {
+            flex: 1;
+        }
+
+        .scorer-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .scorer-team {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .scorer-goals {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+    </style>
 </head>
+
 <body>
-    <section>
-        <nav class="navbar navbar-expand-xl navbar-light bg-$green-500 flex-wrap">
-          <div class="container-fluid">
-            <div class="d-flex w-100 align-items-center">
-              <div aria-label="breadcrumb" style="--bs-breadcrumb-divider: '>';">
-                <ol class="breadcrumb small mb-0">
-                  <li class="breadcrumb-item">
-                    <a class="text-decoration-none d-flex align-items-center" href="#">
-                      <span class="d-inline-block me-2">
-                        <svg width="16" height="18" viewbox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M14.6667 5.66667L9.66668 1.28333C9.20833 0.87337 8.61496 0.646723 8.00002 0.646723C7.38507 0.646723 6.7917 0.87337 6.33335 1.28333L1.33335 5.66667C1.06866 5.90339 0.857435 6.1938 0.713745 6.51854C0.570054 6.84328 0.497195 7.1949 0.500018 7.55V14.8333C0.500018 15.4964 0.76341 16.1323 1.23225 16.6011C1.70109 17.0699 2.33698 17.3333 3.00002 17.3333H13C13.6631 17.3333 14.2989 17.0699 14.7678 16.6011C15.2366 16.1323 15.5 15.4964 15.5 14.8333V7.54167C15.5017 7.18797 15.4282 6.83795 15.2846 6.51473C15.1409 6.19152 14.9303 5.90246 14.6667 5.66667V5.66667ZM9.66668 15.6667H6.33335V11.5C6.33335 11.279 6.42115 11.067 6.57743 10.9107C6.73371 10.7545 6.94567 10.6667 7.16668 10.6667H8.83335C9.05436 10.6667 9.26633 10.7545 9.42261 10.9107C9.57889 11.067 9.66668 11.279 9.66668 11.5V15.6667ZM13.8334 14.8333C13.8334 15.0543 13.7456 15.2663 13.5893 15.4226C13.433 15.5789 13.221 15.6667 13 15.6667H11.3334V11.5C11.3334 10.837 11.07 10.2011 10.6011 9.73223C10.1323 9.26339 9.49639 9 8.83335 9H7.16668C6.50364 9 5.86776 9.26339 5.39892 9.73223C4.93008 10.2011 4.66668 10.837 4.66668 11.5V15.6667H3.00002C2.779 15.6667 2.56704 15.5789 2.41076 15.4226C2.25448 15.2663 2.16668 15.0543 2.16668 14.8333V7.54167C2.16683 7.42334 2.19218 7.30641 2.24103 7.19865C2.28989 7.09088 2.36113 6.99476 2.45002 6.91667L7.45002 2.54167C7.60209 2.40807 7.79759 2.33439 8.00002 2.33439C8.20244 2.33439 8.39794 2.40807 8.55002 2.54167L13.55 6.91667C13.6389 6.99476 13.7101 7.09088 13.759 7.19865C13.8079 7.30641 13.8332 7.42334 13.8334 7.54167V14.8333Z" fill="currentColor"></path>
-                        </svg>
-                      </span>
-                      <span class="text-secondary">Start</span>
-                    </a>
-                  </li>
-                  <li class="breadcrumb-item">
-                    <a class="text-decoration-none d-flex align-items-center" href="#">
-                      <span class="d-inline-block me-2">
-                        <svg width="20" height="20" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M3.09179 13.575C3.01254 13.4991 2.91908 13.4397 2.81679 13.4C2.6139 13.3167 2.38634 13.3167 2.18346 13.4C2.08116 13.4397 1.98771 13.4991 1.90846 13.575C1.83259 13.6543 1.77312 13.7477 1.73346 13.85C1.66964 14.0018 1.6522 14.169 1.68335 14.3307C1.71449 14.4923 1.79282 14.6411 1.90846 14.7583C1.98946 14.8319 2.08247 14.8911 2.18346 14.9333C2.28321 14.9774 2.39106 15.0002 2.50012 15.0002C2.60918 15.0002 2.71704 14.9774 2.81679 14.9333C2.91778 14.8911 3.01079 14.8319 3.09179 14.7583C3.20742 14.6411 3.28575 14.4923 3.3169 14.3307C3.34804 14.169 3.33061 14.0018 3.26679 13.85C3.22713 13.7477 3.16766 13.6543 3.09179 13.575ZM5.83346 6.66667H17.5001C17.7211 6.66667 17.9331 6.57887 18.0894 6.42259C18.2457 6.26631 18.3335 6.05435 18.3335 5.83333C18.3335 5.61232 18.2457 5.40036 18.0894 5.24408C17.9331 5.0878 17.7211 5 17.5001 5H5.83346C5.61244 5 5.40048 5.0878 5.2442 5.24408C5.08792 5.40036 5.00012 5.61232 5.00012 5.83333C5.00012 6.05435 5.08792 6.26631 5.2442 6.42259C5.40048 6.57887 5.61244 6.66667 5.83346 6.66667ZM3.09179 9.40833C2.9746 9.2927 2.82579 9.21437 2.66413 9.18323C2.50248 9.15208 2.33521 9.16952 2.18346 9.23333C2.08247 9.27554 1.98946 9.33472 1.90846 9.40833C1.83259 9.48759 1.77312 9.58104 1.73346 9.68333C1.68937 9.78308 1.6666 9.89094 1.6666 10C1.6666 10.1091 1.68937 10.2169 1.73346 10.3167C1.77566 10.4177 1.83485 10.5107 1.90846 10.5917C1.98946 10.6653 2.08247 10.7245 2.18346 10.7667C2.28321 10.8108 2.39106 10.8335 2.50012 10.8335C2.60918 10.8335 2.71704 10.8108 2.81679 10.7667C2.91778 10.7245 3.01079 10.6653 3.09179 10.5917C3.1654 10.5107 3.22459 10.4177 3.26679 10.3167C3.31088 10.2169 3.33365 10.1091 3.33365 10C3.33365 9.89094 3.31088 9.78308 3.26679 9.68333C3.22713 9.58104 3.16766 9.48759 3.09179 9.40833ZM17.5001 9.16667H5.83346C5.61244 9.16667 5.40048 9.25446 5.2442 9.41074C5.08792 9.56703 5.00012 9.77899 5.00012 10C5.00012 10.221 5.08792 10.433 5.2442 10.5893C5.40048 10.7455 5.61244 10.8333 5.83346 10.8333H17.5001C17.7211 10.8333 17.9331 10.7455 18.0894 10.5893C18.2457 10.433 18.3335 10.221 18.3335 10C18.3335 9.77899 18.2457 9.56703 18.0894 9.41074C17.9331 9.25446 17.7211 9.16667 17.5001 9.16667ZM3.09179 5.24167C3.01254 5.1658 2.91908 5.10633 2.81679 5.06667C2.66503 5.00285 2.49777 4.98542 2.33611 5.01656C2.17445 5.04771 2.02564 5.12604 1.90846 5.24167C1.83485 5.32267 1.77566 5.41568 1.73346 5.51667C1.68937 5.61642 1.6666 5.72427 1.6666 5.83333C1.6666 5.94239 1.68937 6.05025 1.73346 6.15C1.77566 6.25099 1.83485 6.344 1.90846 6.425C1.98946 6.49861 2.08247 6.5578 2.18346 6.6C2.33521 6.66382 2.50248 6.68125 2.66413 6.65011C2.82579 6.61896 2.9746 6.54063 3.09179 6.425C3.1654 6.344 3.22459 6.25099 3.26679 6.15C3.31088 6.05025 3.33365 5.94239 3.33365 5.83333C3.33365 5.72427 3.31088 5.61642 3.26679 5.51667C3.22459 5.41568 3.1654 5.32267 3.09179 5.24167ZM17.5001 13.3333H5.83346C5.61244 13.3333 5.40048 13.4211 5.2442 13.5774C5.08792 13.7337 5.00012 13.9457 5.00012 14.1667C5.00012 14.3877 5.08792 14.5996 5.2442 14.7559C5.40048 14.9122 5.61244 15 5.83346 15H17.5001C17.7211 15 17.9331 14.9122 18.0894 14.7559C18.2457 14.5996 18.3335 14.3877 18.3335 14.1667C18.3335 13.9457 18.2457 13.7337 18.0894 13.5774C17.9331 13.4211 17.7211 13.3333 17.5001 13.3333Z" fill="currentColor"></path>
-                        </svg>
-                      </span>
-                      <span class="text-secondary">Main Tasks</span>
-                    </a>
-                  </li>
-                </ol>
-              </div>
-              <button class="navbar-toggler bg-primary-light ms-auto" type="button">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse">
-                <ul class="navbar-nav me-6 ms-auto">
-                  <li class="nav-item me-6">
-                    <a class="nav-link text-secondary p-0" href="#">
-                      <svg width="21" height="21" viewbox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.7 19.3L17 15.6C20.1 11.7 19.5 6 15.6 2.9C11.7 -0.2 5.99999 0.5 2.89999 4.3C-0.200006 8.2 0.499995 13.9 4.29999 17C7.59999 19.6 12.3 19.6 15.6 17L19.3 20.7C19.7 21.1 20.3 21.1 20.7 20.7C21.1 20.3 21.1 19.7 20.7 19.3ZM9.99999 17C6.09999 17 2.99999 13.9 2.99999 10C2.99999 6.1 6.09999 3 9.99999 3C13.9 3 17 6.1 17 10C17 13.9 13.9 17 9.99999 17Z" fill="currentColor"></path>
-                      </svg>
-                    </a>
-                  </li>
-                  <li class="nav-item me-6">
-                    <a class="nav-link text-secondary p-0" href="#">
-                      <svg width="18" height="20" viewbox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15 0H3C2.20435 0 1.44129 0.316071 0.87868 0.87868C0.316071 1.44129 0 2.20435 0 3V14C0 14.7956 0.316071 15.5587 0.87868 16.1213C1.44129 16.6839 2.20435 17 3 17H5.59L8.29 19.71C8.38344 19.8027 8.49426 19.876 8.61609 19.9258C8.73793 19.9755 8.86839 20.0008 9 20C9.23834 20 9.46886 19.9149 9.65 19.76L12.87 17H15C15.7956 17 16.5587 16.6839 17.1213 16.1213C17.6839 15.5587 18 14.7956 18 14V3C18 2.20435 17.6839 1.44129 17.1213 0.87868C16.5587 0.316071 15.7956 0 15 0ZM16 14C16 14.2652 15.8946 14.5196 15.7071 14.7071C15.5196 14.8946 15.2652 15 15 15H12.5C12.2617 15 12.0311 15.0851 11.85 15.24L9.05 17.64L6.71 15.29C6.61656 15.1973 6.50574 15.124 6.38391 15.0742C6.26207 15.0245 6.13161 14.9992 6 15H3C2.73478 15 2.48043 14.8946 2.29289 14.7071C2.10536 14.5196 2 14.2652 2 14V3C2 2.73478 2.10536 2.48043 2.29289 2.29289C2.48043 2.10536 2.73478 2 3 2H15C15.2652 2 15.5196 2.10536 15.7071 2.29289C15.8946 2.48043 16 2.73478 16 3V14Z" fill="currentColor"></path>
-                      </svg>
-                    </a>
-                  </li>
-                  <li class="nav-item px-0">
-                    <a class="nav-link text-secondary p-0" href="#">
-                      <svg width="16" height="20" viewbox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M14 11.18V8C13.9986 6.58312 13.4958 5.21247 12.5806 4.13077C11.6655 3.04908 10.3971 2.32615 9 2.09V1C9 0.734784 8.89464 0.48043 8.70711 0.292893C8.51957 0.105357 8.26522 0 8 0C7.73478 0 7.48043 0.105357 7.29289 0.292893C7.10536 0.48043 7 0.734784 7 1V2.09C5.60294 2.32615 4.33452 3.04908 3.41939 4.13077C2.50425 5.21247 2.00144 6.58312 2 8V11.18C1.41645 11.3863 0.910998 11.7681 0.552938 12.2729C0.194879 12.7778 0.00173951 13.3811 0 14V16C0 16.2652 0.105357 16.5196 0.292893 16.7071C0.48043 16.8946 0.734784 17 1 17H4.14C4.37028 17.8474 4.873 18.5954 5.5706 19.1287C6.26819 19.6621 7.1219 19.951 8 19.951C8.8781 19.951 9.73181 19.6621 10.4294 19.1287C11.127 18.5954 11.6297 17.8474 11.86 17H15C15.2652 17 15.5196 16.8946 15.7071 16.7071C15.8946 16.5196 16 16.2652 16 16V14C15.9983 13.3811 15.8051 12.7778 15.4471 12.2729C15.089 11.7681 14.5835 11.3863 14 11.18ZM4 8C4 6.93913 4.42143 5.92172 5.17157 5.17157C5.92172 4.42143 6.93913 4 8 4C9.06087 4 10.0783 4.42143 10.8284 5.17157C11.5786 5.92172 12 6.93913 12 8V11H4V8ZM8 18C7.65097 17.9979 7.30857 17.9045 7.00683 17.7291C6.70509 17.5536 6.45451 17.3023 6.28 17H9.72C9.54549 17.3023 9.29491 17.5536 8.99317 17.7291C8.69143 17.9045 8.34903 17.9979 8 18ZM14 15H2V14C2 13.7348 2.10536 13.4804 2.29289 13.2929C2.48043 13.1054 2.73478 13 3 13H13C13.2652 13 13.5196 13.1054 13.7071 13.2929C13.8946 13.4804 14 13.7348 14 14V15Z" fill="currentColor"></path>
-                      </svg>
-                    </a>
-                  </li>
-                </ul>
-                <div>
-                  <button class="btn p-0 fw-normal d-flex align-items-center">
-                    <div class="me-3">
-                      <p class="mb-0 small">Thomas Brown</p>
-                      <p class="mb-0 small text-secondary">Developer</p>
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">
+                <i class="fas fa-football-ball me-3"></i>
+                স্পোর্টস নিউজ
+            </h1>
+            <p class="page-subtitle">বিশ্বের ক্রীড়া খবর, লাইভ স্কোর এবং বিশ্লেষণ</p>
+        </div>
+    </header>
+
+    <!-- Live Scores -->
+    <div class="live-scores">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6 mb-2">
+                    <div class="d-flex align-items-center">
+                        <span class="live-badge me-2">LIVE</span>
+                        <span>রিয়াল মাদ্রিদ ২-১ বার্সেলোনা</span>
                     </div>
-                    <div class="me-2">
-                      <img class="img-fluid rounded-circle" style="width: 40px; height: 40px; object-fit: cover;" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&crop=faces&fit=crop&h=128&w=128" alt="alt">
-                    </div>
-                    <span>
-                      <svg width="20" height="20" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M14.0833 7.66675C13.75 7.33341 13.25 7.33341 12.9166 7.66675L9.99996 10.5834L7.08329 7.66675C6.74996 7.33341 6.24996 7.33341 5.91663 7.66675C5.58329 8.00008 5.58329 8.50008 5.91663 8.83342L9.41663 12.3334C9.58329 12.5001 9.74996 12.5834 9.99996 12.5834C10.25 12.5834 10.4166 12.5001 10.5833 12.3334L14.0833 8.83342C14.4166 8.50008 14.4166 8.00008 14.0833 7.66675Z" fill="#526172"></path>
-                      </svg>
-                    </span>
-                  </button>
                 </div>
-              </div>
+                <div class="col-md-3 col-6 mb-2">
+                    <div class="d-flex align-items-center">
+                        <span class="live-badge me-2">LIVE</span>
+                        <span>লেকার্স ৯৮-৯৫ সেল্টিকস</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-2">
+                    <div class="d-flex align-items-center">
+                        <span class="live-badge me-2">LIVE</span>
+                        <span>নাদাল ২-১ জকোভিচ</span>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-2">
+                    <div class="d-flex align-items-center">
+                        <span class="live-badge me-2">LIVE</span>
+                        <span>ইয়াঙ্কিজ ৪-৩ রেড সক্স</span>
+                    </div>
+                </div>
             </div>
-          </div>
-        </nav>
-      </section>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Sports Categories -->
+        <div class="sports-categories">
+            <div class="d-flex flex-wrap">
+                <button class="sport-btn active">সব খেলা</button>
+                <button class="sport-btn">ফুটবল</button>
+                <button class="sport-btn">বাস্কেটবল</button>
+                <button class="sport-btn">টেনিস</button>
+                <button class="sport-btn">ক্রিকেট</button>
+                <button class="sport-btn">বেসবল</button>
+                <button class="sport-btn">গলফ</button>
+                <button class="sport-btn">বক্সিং</button>
+            </div>
+        </div>
+
+        <!-- Featured Match -->
+        <div class="featured-match">
+            <img src="https://picsum.photos/seed/match/1200/300.jpg" alt="Featured Match" class="featured-img">
+            <div class="match-details">
+                <h3>চ্যাম্পিয়ন্স লিগ ফাইনাল</h3>
+                <div class="teams">
+                    <div class="team">
+                        <img src="https://picsum.photos/seed/team1/80/80.jpg" alt="Team 1" class="team-logo">
+                        <h5>রিয়াল মাদ্রিদ</h5>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <img src="https://picsum.photos/seed/team2/80/80.jpg" alt="Team 2" class="team-logo">
+                        <h5>ম্যানচেস্টার সিটি</h5>
+                    </div>
+                </div>
+                <div class="score">২ - ১</div>
+                <p class="text-muted">ফাইনাল স্কোর • পুরো সময়</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sports News 1 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="sports-card">
+                    <img src="https://picsum.photos/seed/sports1/400/200.jpg" alt="Sports News" class="sports-img">
+                    <div class="sports-body">
+                        <span class="sports-category">ফুটবল</span>
+                        <h3 class="sports-title">ভিনিসিয়ুস জুনিয়রের লাল কার্ড নিয়ে সমালোচনা, পাশে আনচেলত্তি</h3>
+                        <p class="sports-excerpt">গত বছর দারুণভাবে শেষ করা ভিনিসিয়ুস জুনিয়র নতুন বছর শুরু করেছেন লাল কার্ড দেখে। সামাজিক মাধ্যমে নিজের ভুলের জন্য দুঃখ প্রকাশ করেছেন রিয়াল মাদ্রিদের তারকা।</p>
+                        <div class="sports-meta">
+                            <span><i class="far fa-clock"></i> ২ ঘন্টা আগে</span>
+                            <span><i class="far fa-comment"></i> ১৪২</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sports News 2 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="sports-card">
+                    <img src="https://picsum.photos/seed/sports2/400/200.jpg" alt="Sports News" class="sports-img">
+                    <div class="sports-body">
+                        <span class="sports-category">বাস্কেটবল</span>
+                        <h3 class="sports-title">লেব্রন জেমস ইতিহাস গড়লেন, NBA-তে সর্বোচ্চ স্কোরার</h3>
+                        <p class="sports-excerpt">লেকার্স সুপারস্টার হয়ে উঠলেন সর্বকালের সর্বোচ্চ স্কোরার, কেরিম আব্দুল-জাব্বারের রেকর্ড অতিক্রম করে।</p>
+                        <div class="sports-meta">
+                            <span><i class="far fa-clock"></i> ৪ ঘন্টা আগে</span>
+                            <span><i class="far fa-comment"></i> ২৮৯</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sports News 3 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="sports-card">
+                    <img src="https://picsum.photos/seed/sports3/400/200.jpg" alt="Sports News" class="sports-img">
+                    <div class="sports-body">
+                        <span class="sports-category">টেনিস</span>
+                        <h3 class="sports-title">অস্ট্রেলিয়ান ওপেন: চমকপ্রদ পরাজয়, শীর্ষ বীজ হারলেন কোয়ার্টারফাইনাল-এ</h3>
+                        <p class="sports-excerpt">অসীডেড খেলোয়াড় টুর্নামেন্টের সবচেয়ে বড় চমক সৃষ্টি করেছেন, বিশ্বের নং-১ খেলোয়াড়কে সরাসরি সেটে হারিয়েছেন।</p>
+                        <div class="sports-meta">
+                            <span><i class="far fa-clock"></i> ৫ ঘন্টা আগে</span>
+                            <span><i class="far fa-comment"></i> ১৫৬</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sports News 4 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="sports-card">
+                    <img src="https://picsum.photos/seed/sports4/400/200.jpg" alt="Sports News" class="sports-img">
+                    <div class="sports-body">
+                        <span class="sports-category">ক্রিকেট</span>
+                        <h3 class="sports-title">ভারত বনাম পাকিস্তান: বিশ্বকাপ ম্যাচ সুপার ওভারে শেষ</h3>
+                        <p class="sports-excerpt">প্রতিদ্বন্দ্বীরা নাখামাখি লড়াই করেছেন, ম্যাচ শেষ হয়েছে সুপার ওভারে, ১ লাখ দর্শকের সামনে।</p>
+                        <div class="sports-meta">
+                            <span><i class="far fa-clock"></i> ৬ ঘন্টা আগে</span>
+                            <span><i class="far fa-comment"></i> ৩৪২</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sports News 5 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="sports-card">
+                    <img src="https://picsum.photos/seed/sports5/400/200.jpg" alt="Sports News" class="sports-img">
+                    <div class="sports-body">
+                        <span class="sports-category">গলফ</span>
+                        <h3 class="sports-title">ররি ম্যাকইলরয় মাস্টার্স জিতলেন নাটকীয়ভাবে</h3>
+                        <p class="sports-excerpt">উত্তর আয়ারল্যান্ডের গলফার চমকপ্রদ ফাইনাল রাউন্ডের পারফরম্যান্সের মাধ্যমে গ্রিন জ্যাকেট জিতেছেন।</p>
+                        <div class="sports-meta">
+                            <span><i class="far fa-clock"></i> ৭ ঘন্টা আগে</span>
+                            <span><i class="far fa-comment"></i> ৯৮</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sports News 6 -->
+            <div class="col-lg-4 col-md-6">
+                <div class="sports-card">
+                    <img src="https://picsum.photos/seed/sports6/400/200.jpg" alt="Sports News" class="sports-img">
+                    <div class="sports-body">
+                        <span class="sports-category">বক্সিং</span>
+                        <h3 class="sports-title">হুইটেকার বনাম রোলান্ডো: মহাবিশ্বী খেতাব ম্যাচ</h3>
+                        <p class="sports-excerpt">দুই বিশ্ব চ্যাম্পিয়ন একে অপরের বিরুদ্ধে, রিংয়ে উত্তেজনা ও কৌশলের মিলিত লড়াই।</p>
+                        <div class="sports-meta">
+                            <span><i class="far fa-clock"></i> ৮ ঘন্টা আগে</span>
+                            <span><i class="far fa-comment"></i> ১২০</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
+
 </html>

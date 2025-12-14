@@ -1,183 +1,811 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cactus News</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>ক্যাকটাস নিউজ - আপনার দৈনিক তথ্যের উৎস</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    
     <style>
-        #mycontent{
-    height: 75vh;
-}
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #e53935;
+            --accent-color: #fdd835;
+            --dark-color: #212121;
+            --light-color: #f5f5f5;
+            --text-color: #333;
+        }
 
-iframe{
-    width: 100%;
-    height: 80vh;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-footer{
-    height: 5vh;
-    background-color: bisque;
-    text-align: center;
-    padding-top: 5px;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: #f8f9fa;
+        }
 
-#footerlink{
-    color: brown;
-}
+        /* Navbar Styles */
+        .navbar {
+            background-color: white !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--dark-color) !important;
+            font-weight: 500;
+            margin: 0 5px;
+            position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-nav .nav-link i {
+            margin-right: 5px;
+        }
+
+        .navbar-nav .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .navbar-nav .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+
+        .search-form {
+            position: relative;
+        }
+
+        .search-form input {
+            border-radius: 20px;
+            padding-right: 40px;
+        }
+
+        .search-form button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+        }
+
+        /* News Content */
+        #mycontent {
+            min-height: 75vh;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .news-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .news-tabs {
+            display: flex;
+            background-color: #f1f1f1;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .news-tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .news-tab.active {
+            background-color: white;
+            border-bottom: 3px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .news-tab:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .news-content {
+            padding: 20px;
+            height: 60vh;
+            overflow-y: auto;
+        }
+
+        .news-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-img {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+
+        .news-details h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+
+        .news-details p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .news-meta {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        /* Services Section */
+        #service {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .service-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .service-card .card-body {
+            padding: 20px;
+        }
+
+        .service-card .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .service-card .card-text {
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+        .service-card .btn {
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 20px;
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .service-card .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .accordion-button {
+            font-weight: 600;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .accordion-button:focus {
+            box-shadow: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand i {
+            font-size: 1.8rem;
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .footer-social h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #bbb;
+        }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+            .navbar-nav {
+                background-color: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                margin-top: 20px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .news-item {
+                flex-direction: column;
+            }
+
+            .news-img {
+                width: 100%;
+                height: 180px;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
     </style>
-
 </head>
 
 <body>
-    <nav class="navbar sticky-top" style="background-color: #e3f2fd;">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-newspaper"></i> ক্যাকটাস নিউজ
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html" data-category="recent">
+                            <i class="fas fa-home"></i> হোম
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="recentnews.html" data-category="recent">
+                            <i class="fas fa-clock"></i> সাম্প্রতিক সংবাদ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="crime.html" data-category="crime">
+                            <i class="fa-solid fa-handcuffs"></i> অপরাধ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="finance.html" data-category="finance">
+                            <i class="fa-solid fa-coins"></i> অর্থনীতি
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="politics.html" data-category="politics">
+                            <i class="fa-solid fa-landmark"></i> রাজনীতি
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="entertainment.html" data-category="entertainment">
+                            <i class="fa-solid fa-photo-film"></i> বিনোদন
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sports.html" data-category="sports">
+                            <i class="fa-solid fa-football"></i> খেলাধুলা
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="science.html" data-category="science">
+                            <i class="fa-solid fa-flask"></i> বিজ্ঞান
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="search-form ms-lg-3">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="সংবাদ খুঁজুন" aria-label="Search">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="hero-title">আজকের শীর্ষ সংবাদ</h1>
+                    <p class="lead">বিশ্বজুড়ে সর্বশেষ খবর দিয়ে নিজেকে অবহিত রাখুন</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Content -->
+    <div class="container">
+        <div id="mycontent">
+            <div class="news-header">
+                <i class="fas fa-newspaper me-2"></i> সর্বশেষ সংবাদ
+            </div>
+            <div class="news-tabs">
+                <button class="news-tab active" data-category="trending">জনপ্রিয়</button>
+                <button class="news-tab" data-category="latest">সর্বশেষ</button>
+                <button class="news-tab" data-category="popular">আলোচিত</button>
+                <button class="news-tab" data-category="videos">ভিডিও</button>
+            </div>
+            <div class="news-content">
+                <!-- News Item 1 -->
+                <div class="news-item">
+                    <img src="https://picsum.photos/seed/news1/150/100.jpg" alt="News" class="news-img">
+                    <div class="news-details">
+                        <h4>গ্লোবাল ক্লাইমেট সামিটে কার্বন নিঃসরণ নিয়ে ঐতিহাসিক চুক্তি</h4>
+                        <p>বিশ্ব নেতারা একত্রিত হয়ে এক যুগান্তকারী চুক্তিতে স্বাক্ষর করেছেন যা আগামী দশকে কার্বন নিঃসরণ ৪৫% কমানোর লক্ষ্যমাত্রা নির্ধারণ করে।</p>
+                        <div class="news-meta">
+                            <span class="me-3"><i class="far fa-clock"></i> ২ ঘন্টা আগে</span>
+                            <span class="me-3"><i class="far fa-user"></i> সারা জনসন</span>
+                            <span><i class="far fa-comment"></i> ৪২ মন্তব্য</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Item 2 -->
+                <div class="news-item">
+                    <img src="https://picsum.photos/seed/news2/150/100.jpg" alt="News" class="news-img">
+                    <div class="news-details">
+                        <h4>প্রযুক্তি জায়ান্টরা ঘোষণা করেছে বিপ্লবী এআই অংশীদারিত্ব</h4>
+                        <p>প্রধান প্রযুক্তি সংস্থাগুলি একত্রিত হয়ে নৈতিক এআই মান বিকাশ করছে যা শিল্পের কৃত্রিম বুদ্ধিমত্তা পদ্ধতিকে পুনর্গঠন করতে পারে।</p>
+                        <div class="news-meta">
+                            <span class="me-3"><i class="far fa-clock"></i> ৪ ঘন্টা আগে</span>
+                            <span class="me-3"><i class="far fa-user"></i> মাইকেল চেন</span>
+                            <span><i class="far fa-comment"></i> ২৮ মন্তব্য</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Item 3 -->
+                <div class="news-item">
+                    <img src="https://picsum.photos/seed/news3/150/100.jpg" alt="News" class="news-img">
+                    <div class="news-details">
+                        <h4>ক্যান্সার গবেষণায় সাফল্য রোগীদের জন্য নতুন আশা</h4>
+                        <p>বিজ্ঞানীরা একটি নতুন চিকিৎসা পদ্ধতি তৈরি করেছেন যা প্রাথমিক পর্যায়ের পরীক্ষায় আশাব্যঞ্জক ফলাফল দেখাচ্ছে, সম্ভাব্যভাবে ক্যান্সার থেরাপির ভবিষ্যৎ পরিবর্তন করতে পারে।</p>
+                        <div class="news-meta">
+                            <span class="me-3"><i class="far fa-clock"></i> ৬ ঘন্টা আগে</span>
+                            <span class="me-3"><i class="far fa-user"></i> ড. এমিলি রদ্রিগেজ</span>
+                            <span><i class="far fa-comment"></i> ৬৭ মন্তব্য</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Item 4 -->
+                <div class="news-item">
+                    <img src="https://picsum.photos/seed/news4/150/100.jpg" alt="News" class="news-img">
+                    <div class="news-details">
+                        <h4>অর্থনৈতিক পুনরুদ্ধারের মধ্যে স্টক মার্কেট রেকর্ড উচ্চতায়</h4>
+                        <p>সাম্প্রতিক নীতি ঘোষণার পর অর্থনৈতিক পুনরুদ্ধারে বিনিয়োগকারীদের নতুন আস্থা দেখায় বিশ্বব্যাপী স্টক মার্কেট সর্বকালের সর্বোচ্চ স্তরে উঠেছে।</p>
+                        <div class="news-meta">
+                            <span class="me-3"><i class="far fa-clock"></i> ৮ ঘন্টা আগে</span>
+                            <span class="me-3"><i class="far fa-user"></i> রবার্ট উইলিয়ামস</span>
+                            <span><i class="far fa-comment"></i> ৩৫ মন্তব্য</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News Item 5 -->
+                <div class="news-item">
+                    <img src="https://picsum.photos/seed/news5/150/100.jpg" alt="News" class="news-img">
+                    <div class="news-details">
+                        <h4>দূরবর্তী জঙ্গলে প্রত্নতাত্ত্বিকরা আবিষ্কার করেছেন প্রাচীন সভ্যতা</h4>
+                        <p>একদল গবেষক একটি পূর্বে অজানা প্রাচীন সভ্যতার প্রমাণ আবিষ্কার করেছেন যা আদিম মানব ইতিহাসের আমাদের বোঝাপড়া পুনর্লিখন করতে পারে।</p>
+                        <div class="news-meta">
+                            <span class="me-3"><i class="far fa-clock"></i> ১০ ঘন্টা আগে</span>
+                            <span class="me-3"><i class="far fa-user"></i> জেমস মিচেল</span>
+                            <span><i class="far fa-comment"></i> ৮৯ মন্তব্য</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section id="service">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">আমাদের সেবাসমূহ</h2>
+                <p class="lead">আপনার তথ্য চাহিদা পূরণের জন্য তৈরি আমাদের সংবাদ সেবাগুলি অন্বেষণ করুন</p>
+            </div>
+            
+            <div class="row mb-5">
+                <div class="col-md-4 mb-4">
+                    <div class="service-card card h-100">
+                        <img src="https://picsum.photos/seed/sports/400/200.jpg" class="card-img-top service-img" alt="Sports News">
+                        <div class="card-body">
+                            <h3 class="card-title">খেলাধুলা সংবাদ</h3>
+                            <p class="card-text">গত বছরটা দারুণভাবে শেষ করা ভিনিসিয়ুস জুনিয়র নতুন বছর শুরু করেছেন লাল কার্ড দেখে। সামাজিক যোগাযোগ মাধ্যমে নিজের ভুলের জন্য দুঃখ প্রকাশ করেছেন রিয়াল মাদ্রিদ তারকা তবে তাতেও সমর্থকদের মন গলেনি। সমালোচনা হচ্ছে তার মাঠের আচরণ নিয়ে। কঠিন সময়ে ভিনিসিয়ুস অবশ্য পাশে পেয়েছেন কোচ কার্লো আনচেলত্তিকে। ইতালিয়ান এই কোচের মতে, ভিনিসিয়ুস হওয়াটা ভীষণ কঠিন কাজ।</p>
+                            <a href="#" class="btn">আরও পড়ুন</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="service-card card h-100">
+                        <img src="https://picsum.photos/seed/barcelona/400/200.jpg" class="card-img-top service-img" alt="Barcelona News">
+                        <div class="card-body">
+                            <h3 class="card-title">ফুটবল</h3>
+                            <p class="card-text">শেষবার কোনো প্রতিযোগিতায় রিয়াল মাদ্রিদ ফাইনাল হেরেছিল কবে? উত্তর খুঁজতে কিছুটা বিপাকেই পড়ার কথা। গুগল বলছে শেষবার রিয়াল ফাইনালে হেরেছে ২০২৩ সালে। লস ব্লাঙ্কোদের হারার তেতো স্বাদটা দিয়েছিল এই বার্সেলোনাই। তাও সেই একই প্রতিযোগিতায়। ঠিক দুই বছর বাদে সেই একই দৃশ্যের পুনরাবৃত্তি করলো বার্সেলোনা। এবার অবশ্য জয়ের ব্যবধানে রয়েছে বড় ফারাক।</p>
+                            <a href="#" class="btn">আরও পড়ুন</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="service-card card h-100">
+                        <img src="https://picsum.photos/seed/tech/400/200.jpg" class="card-img-top service-img" alt="Technology News">
+                        <div class="card-body">
+                            <h3 class="card-title">প্রযুক্তি</h3>
+                            <p class="card-text">লোরেম ইপসাম ডলর সিট আমেট কনসেক্টেচার, অ্যাডিপিসিং এলিট। সুসিপিট ডলোরিবাস ইটাক কুইসকোয়াম ডলোরেম এলিজেন্ডি? ভেলিট ওডিট, ফুগিয়াট, লডানটিয়াম অ্যাসপারনেচার ম্যাক্সিম নুলা অট মেজোরেস নেসেসিটাটিবাস মিনিমা এট এনিম, কর্পোরিস এক্সেপ্টুরি।</p>
+                            <a href="#" class="btn">আরও পড়ুন</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="accordion" id="newsAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true"
+                                    aria-controls="collapseOne">
+                                    <i class="fas fa-mobile-alt me-2"></i> মোবাইল অ্যাপ
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#newsAccordion">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img src="https://picsum.photos/seed/mobileapp/500/300.jpg" alt="Mobile App" class="img-fluid rounded mb-3">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h4>আমাদের মোবাইল অ্যাপ দিয়ে সংযুক্ত থাকুন</h4>
+                                            <p>ক্যাকটাস নিউজ মোবাইল অ্যাপ ডাউনলোড করুন ব্রেকিং নিউজের তাত্ক্ষণিক বিজ্ঞপ্তি, ব্যক্তিগতকৃত নিউজ ফিড এবং এক্সক্লুসিভ কন্টেন্ট পেতে। iOS এবং Android ডিভাইসের জন্য উপলব্ধ।</p>
+                                            <div class="d-flex gap-3 mb-3">
+                                                <a href="#" class="btn btn-dark">
+                                                    <i class="fab fa-apple me-2"></i> অ্যাপ স্টোর
+                                                </a>
+                                                <a href="#" class="btn btn-dark">
+                                                    <i class="fab fa-google-play me-2"></i> গুগল প্লে
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                    aria-expanded="false" aria-controls="collapseTwo">
+                                    <i class="fas fa-code me-2"></i> নিউজ API
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#newsAccordion">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4>আমাদের নিউজ API একীভূত করুন</h4>
+                                            <p>আমাদের RESTful API এর মাধ্যমে আমাদের বিস্তৃত নিউজ ডাটাবেস অ্যাক্সেস করুন। আপনার অ্যাপ্লিকেশনের জন্য রিয়েল-টাইম নিউজ আপডেট, ঐতিহাসিক ডেটা এবং অ্যানালিটিক্স পান। ডেভেলপার এবং ব্যবসার জন্য নিউজ কন্টেন্ট একীভূত করতে আদর্শ।</p>
+                                            <a href="#" class="btn btn-primary">ডকুমেন্টেশন দেখুন</a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <img src="https://picsum.photos/seed/api/500/300.jpg" alt="News API" class="img-fluid rounded">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false"
+                                    aria-controls="collapseThree">
+                                    <i class="fas fa-newspaper me-2"></i> নিউজলেটার সাবস্ক্রিপশন
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#newsAccordion">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <img src="https://picsum.photos/seed/newsletter/500/300.jpg" alt="Newsletter" class="img-fluid rounded mb-3">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h4>আমাদের নিউজলেটার দিয়ে নিজেকে অবহিত রাখুন</h4>
+                                            <p>আমাদের সাপ্তাহিক নিউজলেটারে সাবস্ক্রাইব করুন কিউরেটেড নিউজ হাইলাইটস, গভীর বিশ্লেষণ এবং এক্সক্লুসিভ কন্টেন্ট সরাসরি আপনার ইনবক্সে পেতে। আপনার পছন্দের ক্যাটাগরি নির্বাচন করুন এবং আপনার নিউজ অভিজ্ঞতা কাস্টমাইজ করুন।</p>
+                                            <div class="input-group mb-3">
+                                                <input type="email" class="form-control" placeholder="আপনার ইমেল লিখুন">
+                                                <button class="btn btn-primary" type="button">সাবস্ক্রাইব</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
         
-        <div>
-    <ul class="nav justify-content align-items-center">
-    </li>
-    <li class="nav-item">
-      <a  class="nav-link" href="rcentnews.html" target="mycontent">
-       <img src="images.jpg" alt="" class="rounded-circle" width="50" height="50" ></a>  <marquee class="">CactusNews</marquee> 
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="rcentnews.html" target="mycontent">Recent News</a>
-    </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="crime.html"target="mycontent"><i class="fa-solid fa-handcuffs"></i>Crime</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="finance.html"target="mycontent">
-            <i class="fa-solid fa-coins"></i>Finance</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="crime.html" target="mycontent">
- 
-            <i class="fa-brands fa-old-republic"></i>Politics</a>
-        </li>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="Entertainment.html" target="mycontent">
-        <i class="fa-solid fa-photo-film"></i>Entertainment</a>
-    </li>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="crime.html" target="mycontent">
- 
-    <i class="fa-solid fa-football"></i>Sports</a>
-</li>
-      </ul>
-    </div>
-    <div>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-    </nav> 
-
-<div>
-    <h1>Today's News</h1>
-</div>
-
-<div id="mycontent">
-    <iframe src="rcentnews.html" frameborder="0" name="mycontent"></iframe>
-</div>
-<section id="service">
-    <div class="bg-secondary">
-        <div>
-            <h1 class="text-center">Service</h1>
-            <hr>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-md-3   m-3 bg-light"><img src="Vini.jpg" alt="" width="300px">
-                <h3 class="text-center">Sports</h3>
-                <hr>
-                <p>গত বছরটা দারুণভাবে শেষ করা ভিনিসিয়ুস জুনিয়র নতুন বছর শুরু করেছেন লাল কার্ড দেখে। সামাজিক যোগাযোগ মাধ্যমে নিজের ভুলের জন্য দুঃখ প্রকাশ করেছেন রিয়াল মাদ্রিদ তারকা তবে তাতেও সমর্থকদের মন গলেনি। সমালোচনা হচ্ছে তার মাঠের আচরণ নিয়ে। কঠিন সময়ে ভিনিসিয়ুস অবশ্য পাশে পেয়েছেন কোচ কার্লো আনচেলত্তিকে। ইতালিয়ান এই কোচের মতে, ভিনিসিয়ুস হওয়াটা ভীষণ কঠিন কাজ। </p>
-            </div>
-            <div class="col-md-3  m-3  bg-warning">
-                <img src="barca.jpg" alt="">
-
-                <h3 class="text-center">Barcelona</h3>
-                <hr>
-                <p>শেষবার কোনো প্রতিযোগিতায় রিয়াল মাদ্রিদ ফাইনাল হেরেছিল কবে? উত্তর খুঁজতে কিছুটা বিপাকেই পড়ার কথা। গুগল বলছে শেষবার রিয়াল ফাইনালে হেরেছে ২০২৩ সালে। লস ব্লাঙ্কোদের হারার তেতো স্বাদটা দিয়েছিল এই বার্সেলোনাই। তাও সেই একই প্রতিযোগিতায়। ঠিক দুই বছর বাদে সেই একই দৃশ্যের পুনরাবৃত্তি করলো বার্সেলোনা। এবার অবশ্য জয়ের ব্যবধানে রয়েছে বড় ফারাক। </p>
-            </div>
-            <div class="col-md-3   m-3 bg-danger">
-
-                <h3 class="text-center">Web Application</h3>
-                <hr>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit doloribus itaque quisquam
-                    dolorem eligendi? Velit odit, fugiat, laudantium aspernatur maxime nulla aut maiores
-                    necessitatibus minima a et enim, corporis excepturi.`</p>
-            </div>
-        </div>
-
-        <div class="row m-3 pb-3">
-            <div class="accordion" id="accordionPanelsStayOpenExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button " type="button" data-bs-toggle="collapse"
-                            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                            aria-controls="panelsStayOpen-collapseOne">
-                            Android App
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-                        <div class="accordion-body"> <img src="" alt="">
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias sint odio facere?
-                                Quas fugiat nihil, quis minus, consequatur modi iste aut nobis iure, enim harum esse
-                                accusamus aspernatur reiciendis inventore?</p>
-                        </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-brand">
+                        <i class="fas fa-newspaper"></i>
+                        <h3>ক্যাকটাস নিউজ</h3>
+                    </div>
+                    <p class="mb-3">ব্রেকিং নিউজ, গভীর বিশ্লেষণ এবং বিশ্বজুড়ে ঘটনাগুলির বিস্তৃত কভারেজের জন্য আপনার বিশ্বস্ত উৎস।</p>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-envelope me-2"></i> info@cactusnews.com</p>
+                        <p><i class="fas fa-phone me-2"></i> +১ (১২৩) ৪৫৬-৭৮৯০</p>
+                        <p><i class="fas fa-map-marker-alt me-2"></i> ১২৩ নিউজ স্ট্রিট, মিডিয়া সিটি, ইউএসএ</p>
                     </div>
                 </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed bg-warning" type="button"
-                            data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo"
-                            aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                            REST API
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <strong>This is the second item's accordion body.</strong> It is hidden by default,
-                            until the collapse plugin adds the appropriate classes that we use to style each
-                            element. These classes control the overall appearance, as well as the showing and hiding
-                            via CSS transitions. You can modify any of this with custom CSS or overriding our
-                            default variables. It's also worth noting that just about any HTML can go within the
-                            <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-links">
+                        <h4>দ্রুত লিঙ্ক</h4>
+                        <ul>
+                            <li><a href="#">আমাদের সম্পর্কে</a></li>
+                            <li><a href="#">যোগাযোগ</a></li>
+                            <li><a href="#">ক্যারিয়ার</a></li>
+                            <li><a href="#">গোপনীয়তা নীতি</a></li>
+                            <li><a href="#">সেবার শর্তাবলী</a></li>
+                            <li><a href="#">আমাদের সাথে বিজ্ঞাপন দিন</a></li>
+                        </ul>
                     </div>
                 </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed bg-danger" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
-                            aria-controls="panelsStayOpen-collapseThree">
-                            Web Application
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until
-                            the collapse plugin adds the appropriate classes that we use to style each element.
-                            These classes control the overall appearance, as well as the showing and hiding via CSS
-                            transitions. You can modify any of this with custom CSS or overriding our default
-                            variables. It's also worth noting that just about any HTML can go within the
-                            <code>.accordion-body</code>, though the transition does limit overflow.
+                <div class="col-lg-4 mb-4">
+                    <div class="footer-social">
+                        <h4>আমাদের অনুসরণ করুন</h4>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                        <div class="mt-3">
+                            <h4>আমাদের অ্যাপ ডাউনলোড করুন</h4>
+                            <div class="d-flex gap-2">
+                                <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" height="40"></a>
+                                <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" height="40"></a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="footer-copyright">
+                <p>&copy; ১৯৯৯-২০২৫ ক্যাকটাস নিউজ। সর্বস্বত্ব সংরক্ষিত। রহমত দ্বারা চালিত।</p>
+            </div>
         </div>
-    </div>
+    </footer>
 
-</section>
+    <script>
+        // News tab functionality
+        document.querySelectorAll('.news-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.news-tab').forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // In a real application, you would load different content based on the tab
+                // For demonstration, we're just changing the active state
+                const category = this.getAttribute('data-category');
+                console.log('Loading news for category:', category);
+            });
+        });
         
-<footer  class="footer bg-dark text-dark align-items-center"> Copyright 1999-2025 by Refsnes Data. All Rights Reserved. cactusnews is Powered by Rahmat.
-</footer>
+        // Navbar category links
+        document.querySelectorAll('.navbar-nav .nav-link[data-category]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Remove active class from all links
+                document.querySelectorAll('.navbar-nav .nav-link').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // In a real application, you would load different content based on the category
+                const category = this.getAttribute('data-category');
+                console.log('Loading news for category:', category);
+                
+                // Update the news header
+                const newsHeader = document.querySelector('.news-header');
+                newsHeader.innerHTML = `<i class="fas fa-newspaper me-2"></i> ${category.charAt(0).toUpperCase() + category.slice(1)} সংবাদ`;
+            });
+        });
+    </script>
 </body>
 
 </html>
